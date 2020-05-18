@@ -54,7 +54,7 @@
     （功能）
 
 ####  2）模块之间的关系及接口：  
-![image](https://github.com/simonsheng1999/Complier_BUPT/blob/master/%E6%A8%A1%E5%9D%97%E5%85%B3%E7%B3%BB%E5%9B%BE.png)
+<img src="https://github.com/simonsheng1999/Complier_BUPT/blob/master/%E6%A8%A1%E5%9D%97%E5%85%B3%E7%B3%BB%E5%9B%BE.png" width = "200" height = "300" alt="" align=center />
 
 ### 2、数据结构设计：（符号表、语法树、记号二元组...）  
 
