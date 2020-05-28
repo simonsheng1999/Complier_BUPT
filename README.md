@@ -41,7 +41,7 @@
 3、CLion  
 
 ## 四、总体设计说明：  
-![模块关系图](模块关系图.png.png)
+![模块关系图](https://github.com/simonsheng1999/Complier_BUPT/blob/master/%E6%A8%A1%E5%9D%97%E5%85%B3%E7%B3%BB%E5%9B%BE.png)
 
 ### 1、总体结构设计： 
 
