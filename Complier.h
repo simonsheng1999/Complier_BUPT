@@ -91,6 +91,7 @@ using namespace std;
 struct ATRNode{
     int id;                     //记号
     string attr;                //属性
+    int lineno;                   //声明行
     vector<ATRNode> children; //子节点vector
 
     ATRNode(int id, string attr, vector<ATRNode> children)
