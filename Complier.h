@@ -84,6 +84,17 @@
 #define   Sarray      68
 #define   Sstring     69
 
+#define   INTEGER     70
+#define   REAL        71
+#define   CHAR        72
+#define   BOOLEAN     73
+#define   TEXT        74
+#define   INPUT       75
+#define   OUTPUT      76
+#define   NONE        77
+#define   UMINUS      78
+#define   EMPTY       79
+
 
 using namespace std;
 
