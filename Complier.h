@@ -120,6 +120,19 @@ struct T_item{
     }
 };
 
+// 储存type值
+struct TYPE_info{
+    int type;                   // 变量类型
+    int dim;                    // 变量维度
+    vector<T_item> *p;          // 符号表指针
+    TYPE_info(int type, int dim, vector<T_item> *p)
+    {
+        this->type = type;
+        this->dim = dim;
+        this->p = p;
+    }
+};
+
 //符号表
 vector<T_item> SymbolTable;
 
