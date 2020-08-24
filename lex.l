@@ -11,6 +11,9 @@ int line = 1;
 
 %}
 
+%x COMMENT
+
+
 A [aA]
 B [bB]
 C [cC]
@@ -199,8 +202,15 @@ NQUOTE [^']
 [" "\t\f]    ;
 \r           ;
 
+"//"			              {BEGIN COMMENT;	//用BEGIN宏切换到注释状态，去过滤这段注释，下一次lex将只匹配前面带有<COMMENT>的正则式
+				              }
+.                             {yyerror("Error:invalid input.\n");
+                              }
+<COMMENT>\n		              {BEGIN INITIAL;			//在注释状态下，当遇到换行符时，表明注释结束了，返回初始态
+				              }
 
-.    {yyerror("Error:invalid input.\n");}
+<COMMENT>.		              {							
+                              }
 
 %%
 

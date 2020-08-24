@@ -1,6 +1,6 @@
 program sample (input, output);
     var x, y, z: integer;
         begin
-            y:=x+1;
+            y:=x/1;     // 做一个测试
             z := 2;
         end.
