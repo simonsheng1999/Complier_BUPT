@@ -1,0 +1,6 @@
+program sample (input, output);
+    var x, y, z: integer;
+        begin
+            y:=x+1;
+            z := 2;
+        end.
