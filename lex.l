@@ -206,9 +206,9 @@ NQUOTE [^']
 				              }
 .                             {yyerror("Error:invalid input.\n");
                               }
-<COMMENT>\n		              {BEGIN INITIAL;			//在注释状态下，当遇到换行符时，表明注释结束了，返回初始态
+<COMMENT>\n		              {line++;
+                               BEGIN INITIAL;			//在注释状态下，当遇到换行符时，表明注释结束了，返回初始态
 				              }
-
 <COMMENT>.		              {							
                               }
 
