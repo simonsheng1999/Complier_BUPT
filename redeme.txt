@@ -1,0 +1,9 @@
+compile.h			->		所有需要用到的全局变量和函数的声明
+yacc.tab.h			->		词法与语法分析需要用到的宏定义和相关变量的声明
+
+lex.yy.cpp			->		词法分析的实现
+yacc.tab.cpp		->		语法分析的实现
+semantic.cpp		->		语义分析的实现
+generate_code.cpp	->		代码生成的实现
+
+main.cpp			->		主模块

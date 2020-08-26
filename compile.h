@@ -73,13 +73,18 @@ struct TYPE_info{
 
 //符号表
 extern vector<T_item> SymbolTable;
+extern vector<vector<T_item>> temp_tables;
 extern vector<T_item> * curTable;
 extern ATRNode root_node;
 
 ATRNode newNode(int, string, int);
 void postorder_traversal(const ATRNode& Node);
-int syntax_process();
-
+int syntax_process(const char*);
+void semantic(const ATRNode & node);
+T_item search_table(const string & name, bool only_cur_table);
+void insert_symbol_table(const T_item & item);
+void print_stable();
+void generate_code(ATRNode * node);
 
 #define YYSTYPE ATRNode     //把YYSTYPE(即yylval变量)重定义为struct类型，这样lex就能向yacc返回更多的数据了
 
