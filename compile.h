@@ -44,14 +44,16 @@ struct ATRNode{
 struct T_item{
     string name;                //名称
     int type;                   //类型
+    bool is_ref;                //是否为引用类型
     int dimension;              //维度
     int line;                   //声明行
     vector<T_item> *p;          //符号表指针
 
-    T_item(string name, int type, int dimension, int line, vector<T_item> *p)
+    T_item(string name, int type, int dimension, int line, vector<T_item> *p, bool is_ref=false)
     {
         this->name = std::move(name);
         this->type = type;
+        this->is_ref = is_ref;
         this->dimension = dimension;
         this->line = line;
         this->p = p;
@@ -61,11 +63,13 @@ struct T_item{
 // 储存type值
 struct TYPE_info{
     int type;                   // 变量类型
+    bool is_ref;                // 是否为引用型变量
     int dim;                    // 变量维度
     vector<T_item> *p;          // 符号表指针
-    TYPE_info(int type, int dim, vector<T_item> *p)
+    TYPE_info(int type, int dim, vector<T_item> *p, bool is_ref=false)
     {
         this->type = type;
+        this->is_ref = is_ref;
         this->dim = dim;
         this->p = p;
     }

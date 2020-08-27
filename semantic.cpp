@@ -41,7 +41,7 @@ int generate_34(const ATRNode & node);
 int generate_35(const ATRNode & node);
 int generate_36(const ATRNode & node);
 int generate_38(const ATRNode & node);
-int generate_39(const ATRNode & node);
+int generate_39(const ATRNode & node, bool);
 void generate_40(const ATRNode & node);
 void generate_41(const ATRNode & node);
 void generate_42(const ATRNode & node);
@@ -75,6 +75,24 @@ int generate_73(const ATRNode & node);
 int generate_74(const ATRNode & node);
 int generate_75(const ATRNode & node);
 
+// 判断是否为数值类型
+bool is_number(int type)
+{
+    return type == INTEGER or type == REAL;
+}
+
+// 获取两个数值类型的更高类型
+int get_type(int type1, int type2)
+{
+    if(type1==REAL or type2==REAL)
+    {
+        return REAL;
+    }
+    else
+    {
+        return INTEGER;
+    }
+}
 
 string show_type(int type)
 {
@@ -109,6 +127,18 @@ string show_type(int type)
     return str;
 }
 
+string is_ref_var(bool is_ref)
+{
+    if(is_ref)
+    {
+        return "YES";
+    }
+    else
+    {
+        return "NO";
+    }
+}
+
 void exit_error()
 {
     cout << "semantic failed..." << endl;
@@ -127,23 +157,31 @@ void init_temp_tables()
 void print_stable()
 {
     cout << "Symbol Table" << endl;
-    printf("\n%-10s\t%-10s\t%-10s\t%-10s\t%-10s\n", "ID", "TYPE", "DIMENSION", "LINE", "SUBTABLE");
+    printf("\n%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\n", "ID", "TYPE", "IS_REF", "DIMENSION", "LINE", "SUBTABLE");
     for(auto &i : SymbolTable)
     {
-        printf("%-10s\t%-10s\t%-10d\t%-10d",i.name.c_str(), show_type(i.type).c_str(), i.dimension, i.line);
+        printf("%-10s\t%-10s\t%-10s\t%-10d\t%-10d",i.name.c_str(), show_type(i.type).c_str(),
+               is_ref_var(i.is_ref).c_str(), i.dimension, i.line);
         if(i.p == nullptr)
         {
             printf("\t%-10s\n", "NO");
         }
         else
         {
-            printf("\t%-10s\n\n", "YES");
-            printf("%-10s%-10s\t%-10s\t%-10s\t%-10s\t%-10s\n", "", "ID", "TYPE", "DIMENSION", "LINE", "SUBTABLE");
+            printf("\t%-10s\n", "YES");
+            printf("\n%-10s%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\n", "", "ID", "TYPE", "IS_REF", "DIMENSION", "LINE", "SUBTABLE");
             for(auto &j: *i.p)
             {
-                printf("%-10s", "");
-                printf("%-10s\t%-10s\t%-10d\t%-10d\t%-10s\n",j.name.c_str(), show_type(j.type).c_str(),
-                       j.dimension, j.line, "NO");
+                printf("%-10s%-10s\t%-10s\t%-10s\t%-10d\t%-10d","", j.name.c_str(), show_type(j.type).c_str(),
+                       is_ref_var(j.is_ref).c_str(), j.dimension, j.line);
+                if(j.p == nullptr)
+                {
+                    printf("\t%-10s\n", "NO");
+                }
+                else
+                {
+                    printf("\t%-10s\n", "YES");
+                }
             }
             printf("\n");
         }
@@ -340,7 +378,7 @@ int generate_5(const ATRNode & node, const TYPE_info & type_info)
         id_count += generate_5(node.children[0], type_info);
     }
     ATRNode id = node.children[2];
-    T_item item(id.attr, type_info.type, type_info.dim, id.line, type_info.p);
+    T_item item(id.attr, type_info.type, type_info.dim, id.line, type_info.p, type_info.is_ref);
     insert_symbol_table(item);
     return id_count;
 }
@@ -349,7 +387,7 @@ int generate_5(const ATRNode & node, const TYPE_info & type_info)
 int generate_6(const ATRNode & node, const TYPE_info & type_info)
 {
     ATRNode id = node.children[0];
-    T_item item(id.attr, type_info.type, type_info.dim, id.line, type_info.p);
+    T_item item(id.attr, type_info.type, type_info.dim, id.line, type_info.p, type_info.is_ref);
     insert_symbol_table(item);
     return 1;
 }
@@ -739,7 +777,7 @@ int generate_36(const ATRNode & node)
     }
     else
     {
-        param_count = generate_39(node.children[0]);
+        param_count = generate_39(node.children[0], false);
     }
     return param_count;
 }
@@ -747,13 +785,17 @@ int generate_36(const ATRNode & node)
 // var_parameter -> var  value_parameter
 int generate_38(const ATRNode & node)
 {
-    return generate_39(node.children[1]);
+    return generate_39(node.children[1], true);
 }
 
 // value_parameter -> idlist  :  basic_type  【类型传递】【调用：类型传递】
-int generate_39(const ATRNode & node)
+int generate_39(const ATRNode & node, bool var_variable)
 {
     TYPE_info type_info = generate_21(node.children[2]);
+    if(var_variable)
+    {
+        type_info.is_ref = true;
+    }
     int param_count;
     if(node.children[0].children.size()==1)
     {
@@ -927,17 +969,10 @@ void generate_45(const ATRNode & node)
     }
 }
 
-// statement -> 【创建子表】compound_statement 【退出子表】
+// statement -> compound_statement
 void generate_46(const ATRNode & node)
 {
-    /*vector<T_item> block_table;
-    T_item item("_", NONE, 0, 0, &block_table);
-    insert_symbol_table(item);
-    T_item item1("_", NONE, 0, 0, curTable);
-    curTable = item.p;
-    insert_symbol_table(item1);*/
     generate_41(node.children[0]);
-    /*curTable = (*curTable)[0].p;*/
 }
 
 // statement -> if  expression  then statement  else_part
@@ -1400,7 +1435,7 @@ T_item generate_64(const ATRNode & node)
     {
         item2 = generate_66(node.children[2]);
     }
-    if(item1.type == item2.type and (item1.type == INTEGER or item1.type == REAL))
+    if(is_number(item1.type) and is_number(item2.type))
     {
         T_item item("", BOOLEAN, 0, 0, nullptr);
         return item;
@@ -1450,14 +1485,20 @@ T_item generate_66(const ATRNode & node)
     {
         item2 = generate_68(node.children[2]);
     }
-    if(item1.type == item2.type and (item1.type == INTEGER or item1.type == REAL))
+    if(add_op.attr == "or")
     {
-        T_item item("", item1.type, 0, 0, nullptr);
+        T_item item("", BOOLEAN, 0, 0, nullptr);
+        return item;
+    }
+    else if(is_number(item1.type) and is_number(item2.type))
+    {
+
+        T_item item("", get_type(item1.type, item2.type), 0, 0, nullptr);
         return item;
     }
     else
     {
-        cout << "Line " << add_op.line << "\twrong type: " << add_op.attr << endl;
+        cout << "Line " << add_op.line << "\twrong type for: " << add_op.attr << endl;
         exit_error();
         T_item item("", NONE, 0, 0, nullptr);
         return item;
@@ -1517,7 +1558,11 @@ T_item generate_68(const ATRNode & node)
     }
 
     ATRNode mul_op = node.children[1].children[0];
-    if(mul_op.attr == "mod" or mul_op.attr == "div")    //只能对整数取模
+    if(mul_op.attr == "and")
+    {
+        type = BOOLEAN;
+    }
+    else if(mul_op.attr == "mod" or mul_op.attr == "div")    //只能对整数取模
     {
         if(type1 == type2 and type1 == INTEGER)
         {
@@ -1530,9 +1575,9 @@ T_item generate_68(const ATRNode & node)
             type = NONE;
         }
     }
-    else if(type1 == type2 and (type1 == REAL or type1 == INTEGER))
+    else if(is_number(type1) and is_number(type2))
     {
-        type = type1;
+        type = get_type(type1, type2);
     }
     else
     {
