@@ -4,6 +4,7 @@
 
 #include "generator_code.h"
 
+
 using namespace std;
 
 //@
@@ -511,6 +512,12 @@ void generator_statement(ATRNode * node) {
             }
             else {
                 space(N);
+                T_item id = search_table(node->children[0].children[0].attr, false);
+                if(id.is_ref) {
+                    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                    output_stream << "*";
+                    output_stream.close();
+                }
                 generator_variable(&node->children[0]);
                 output_stream.open("output.txt", ios::app|ios::in|ios::out);
                 output_stream << " = ";
@@ -655,10 +662,13 @@ void generator_statement(ATRNode * node) {
             output_stream << "\", ";
             output_stream.close();
             for (i = 0; i < varlist.size(); i++) {
-                output_stream.open("output.txt", ios::app|ios::in|ios::out);
-                output_stream << "&";
-                output_stream.close();
-                generator_variable(&varlist[i]);
+                T_item id = search_table(varlist[i].children[0].attr, false);
+                if(!id.is_ref) {
+                    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                    output_stream << "&";
+                    output_stream.close();
+                }
+                generator_variable_read(&varlist[i]);
                 if (i == varlist.size() - 1)
                     continue;
                 output_stream.open("output.txt", ios::app|ios::in|ios::out);
@@ -732,6 +742,29 @@ void generator_variable(ATRNode * node){
     fstream output_stream;
     if (node->children[0].id == IDENTIFIER){
         T_item id = search_table(node->children[0].attr, false);
+        if (id.dimension != 0) {
+            tempTable = curTable;
+            curTable = id.p;
+        }
+        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        if(id.is_ref) output_stream << "*";
+        output_stream << id.name;
+        output_stream.close();
+        generator_id_varpart(&node->children[1]);
+    }
+}
+
+//@
+// variable -> id id_varpart
+void generator_variable_read(ATRNode * node){
+    cout << "generator_variable" << endl;
+    fstream output_stream;
+    if (node->children[0].id == IDENTIFIER){
+        T_item id = search_table(node->children[0].attr, false);
+        if (id.dimension != 0) {
+            tempTable = curTable;
+            curTable = id.p;
+        }
         output_stream.open("output.txt", ios::app|ios::in|ios::out);
         output_stream << id.name;
         output_stream.close();
@@ -750,16 +783,19 @@ void generator_id_varpart(ATRNode * node){
         int i;
 
         generator_expression_list(&node->children[1], &exlist);
-        cout << exlist.size() << endl;
         for (i = 0; i < exlist.size(); i++){
             output_stream.open("output.txt", ios::app|ios::in|ios::out);
             output_stream << "[";
             output_stream.close();
-            generator_expression(&exlist[i]);
+            string num = exlist[i].children[0].children[0].children[0].children[0].children[0].attr;
+            int a = strtol(num.c_str(), nullptr, 10);
+            int b = (*curTable)[i].type;
             output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream << a - b;
             output_stream << "]";
             output_stream.close();
         }
+        curTable = tempTable;
     }
     else if (node->children.empty()){
         // debug
@@ -776,6 +812,10 @@ void generator_procedure_call(ATRNode * node){
         output_stream.open("output.txt", ios::app|ios::in|ios::out);
         output_stream << node->children[0].attr;
         if (node->children.size() == 4){
+            T_item id = search_table(node->children[0].attr, false);
+            vector<T_item> *p1;
+            if((*curTable)[0].name == id.name) p1 = curTable;
+            else p1 = id.p;
             vector<ATRNode> exlist;
             int i;
 
@@ -783,6 +823,11 @@ void generator_procedure_call(ATRNode * node){
             output_stream.close();
             generator_expression_list(&node->children[2], &exlist);
             for (i = 0; i < exlist.size(); i++){
+                if((*p1)[i + 1].is_ref) {
+                    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                    output_stream << "&";
+                    output_stream.close();
+                }
                 generator_expression(&exlist[i]);
                 if (i == exlist.size() - 1)
                     continue;
@@ -939,6 +984,7 @@ void generator_factor(ATRNode * node){
     }
     else if (node->children[0].id == IDENTIFIER){
         T_item id = search_table(node->children[0].attr, false);
+        vector<T_item> *p1 = id.p;
         output_stream.open("output.txt", ios::app|ios::in|ios::out);
         output_stream << id.name;
         vector<ATRNode> exlist;
@@ -948,6 +994,11 @@ void generator_factor(ATRNode * node){
         output_stream << "(";
         output_stream.close();
         for (i = 0; i < exlist.size(); i++){
+            if((*p1)[i + 1].is_ref) {
+                output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                output_stream << "&";
+                output_stream.close();
+            }
             generator_expression(&exlist[i]);
             if (i == exlist.size() - 1)
                 continue;

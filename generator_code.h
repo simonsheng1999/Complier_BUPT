@@ -6,6 +6,7 @@
 #define GENERATER_GENERATER_H
 
 #include <fstream>
+#include <cstdlib>
 #include "compile.h"
 #include "yacc.tab.h"
 
@@ -103,6 +104,9 @@ void generator_variable_list(ATRNode * node, vector<ATRNode> * varlist);
 //variable -> id id_varpart
 void generator_variable(ATRNode * node);
 
+//variable -> id id_varpart
+void generator_variable_read(ATRNode * node);
+
 //id_varpart -> [ expression_list ] | e
 void generator_id_varpart(ATRNode * node);
 
@@ -175,5 +179,7 @@ int type = 0;
 ATRNode * e;
 
 int numofe = 0;
+
+vector<T_item> * tempTable;
 
 #endif //GENERATER_GENERATER_H
