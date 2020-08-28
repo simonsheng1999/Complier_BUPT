@@ -513,11 +513,6 @@ void generator_statement(ATRNode * node) {
             else {
                 space(N);
                 T_item id = search_table(node->children[0].children[0].attr, false);
-                if(id.is_ref) {
-                    output_stream.open("output.txt", ios::app|ios::in|ios::out);
-                    output_stream << "*";
-                    output_stream.close();
-                }
                 generator_variable(&node->children[0]);
                 output_stream.open("output.txt", ios::app|ios::in|ios::out);
                 output_stream << " = ";
