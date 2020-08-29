@@ -591,15 +591,28 @@ void generator_statement(ATRNode * node) {
             output_stream << "for (" << node->children[1].attr << " = ";
             output_stream.close();
             generator_expression(&node->children[3]);
-            output_stream.open(fname, ios::app|ios::in|ios::out);
-            output_stream << "; " << node->children[1].attr << " <= ";
-            output_stream.close();
-            generator_expression(&node->children[5]);
-            output_stream.open(fname, ios::app|ios::in|ios::out);
-            output_stream << "; " << node->children[1].attr << "++" << ") ";
-            output_stream << "{" << endl;
-            N++;
-            output_stream.close();
+            if(node->children[4].id == DOWNTO) {
+                output_stream.open(fname, ios::app|ios::in|ios::out);
+                output_stream << "; " << node->children[1].attr << " >= ";
+                output_stream.close();
+                generator_expression(&node->children[5]);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
+                output_stream << "; " << node->children[1].attr << "--" << ") ";
+                output_stream << "{" << endl;
+                N++;
+                output_stream.close();
+            }
+            else {
+                output_stream.open(fname, ios::app|ios::in|ios::out);
+                output_stream << "; " << node->children[1].attr << " <= ";
+                output_stream.close();
+                generator_expression(&node->children[5]);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
+                output_stream << "; " << node->children[1].attr << "++" << ") ";
+                output_stream << "{" << endl;
+                N++;
+                output_stream.close();
+            }
             generator_statement(&node->children[7]);
             if (type == 1 && numofe == 1) {
                 space(N);
@@ -688,37 +701,44 @@ void generator_statement(ATRNode * node) {
         }
         else if (node->children[0].id == WRITE) {
             space(N);
-            vector<ATRNode> exlist;
-            generator_expression_list(&node->children[2], &exlist);
-            output_stream.open(fname, ios::app|ios::in|ios::out);
-            output_stream << "printf(\"";
-            int t;
-            int i;
-            for (i = 0; i < exlist.size(); i++) {
-                t = typeofexpression(&exlist[i]);
-                if (t == INTEGER)
-                    output_stream << "%d";
-                else if (t == REAL)
-                    output_stream << "%f";
-                else if (t == CHAR)
-                    output_stream << "%c";
-                if (i == exlist.size() - 1)
-                    continue;
-                output_stream << ", ";
-            }
-            output_stream << "\", ";
-            output_stream.close();
-            for (i = 0; i < exlist.size(); i++) {
-                generator_expression(&exlist[i]);
-                if (i == exlist.size() - 1)
-                    continue;
+            if(node->children[2].id == STRING) {
                 output_stream.open(fname, ios::app|ios::in|ios::out);
-                output_stream << ", ";
+                output_stream << "printf(" << node->children[2].attr << ");" << endl;
                 output_stream.close();
             }
-            output_stream.open(fname, ios::app|ios::in|ios::out);
-            output_stream << ");" << endl;
-            output_stream.close();
+            else {
+                vector<ATRNode> exlist;
+                generator_expression_list(&node->children[2], &exlist);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
+                output_stream << "printf(\"";
+                int t;
+                int i;
+                for (i = 0; i < exlist.size(); i++) {
+                    t = typeofexpression(&exlist[i]);
+                    if (t == INTEGER)
+                        output_stream << "%d";
+                    else if (t == REAL)
+                        output_stream << "%f";
+                    else if (t == CHAR)
+                        output_stream << "%c";
+                    if (i == exlist.size() - 1)
+                        continue;
+                    output_stream << ", ";
+                }
+                output_stream << "\", ";
+                output_stream.close();
+                for (i = 0; i < exlist.size(); i++) {
+                    generator_expression(&exlist[i]);
+                    if (i == exlist.size() - 1)
+                        continue;
+                    output_stream.open(fname, ios::app|ios::in|ios::out);
+                    output_stream << ", ";
+                    output_stream.close();
+                }
+                output_stream.open(fname, ios::app|ios::in|ios::out);
+                output_stream << ");" << endl;
+                output_stream.close();
+            }
         }
     }
     /*
@@ -728,7 +748,6 @@ void generator_statement(ATRNode * node) {
         output_stream.close();
     }
      */
-
 }
 
 //@

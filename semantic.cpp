@@ -1225,10 +1225,12 @@ void generate_50(const ATRNode & node)
     }
 }
 
-// statement -> write ( expression_list )
+// statement -> write ( expression_list ) | write ( STRING )
 void generate_51(const ATRNode & node)
 {
-    if(node.children[2].children.size()==1)
+    if(node.children[2].id != -1)
+    {}
+    else if(node.children[2].children.size()==1)
     {
         generate_63(node.children[2]);
     }
