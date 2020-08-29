@@ -35,30 +35,33 @@ void generator_pretreatment() {
 void generator_program_body(ATRNode * node) {
     cout << "generator_program_body" << endl;
     fstream output_stream;
+    int i;
 
-    generator_const_declarations(&node->children[0]);
-    output_stream.open(fname, ios::app|ios::in|ios::out);
-    output_stream << endl;
-    output_stream.close();
-    generator_var_declarations(&node->children[1]);
-    output_stream.open(fname, ios::app|ios::in|ios::out);
-    output_stream << endl;
-    output_stream.close();
-    generator_subprogram_declarations(&node->children[2]);
-    type = 0;
-    output_stream.open(fname, ios::app|ios::in|ios::out);
-    output_stream << endl;
-    space(N);
-    output_stream << "void main() {" << endl;
-    N++;
-    output_stream.close();
-    generator_compound_statement(&node->children[3]);
-    N--;
-    space(N);
-    output_stream.open(fname, ios::app|ios::in|ios::out);
-    output_stream << "}";
-
-    output_stream.close();
+    for(i = 0; i < node->children.size(); i++) {
+        output_stream.open(fname, ios::app|ios::in|ios::out);
+        output_stream << endl;
+        output_stream.close();
+        if(node->children[i].attr == "const_declarations")
+            generator_const_declarations(&node->children[i]);
+        else if(node->children[i].attr == "var_declarations")
+            generator_var_declarations(&node->children[i]);
+        else if(node->children[i].attr == "subprogram_declarations")
+            generator_subprogram_declarations(&node->children[i]);
+        else {
+            type = 0;
+            output_stream.open(fname, ios::app|ios::in|ios::out);
+            space(N);
+            output_stream << "void main() {" << endl;
+            N++;
+            output_stream.close();
+            generator_compound_statement(&node->children[3]);
+            N--;
+            space(N);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
+            output_stream << "}";
+            output_stream.close();
+        }
+    }
 }
 
 //@
@@ -106,6 +109,7 @@ void generator_const_declaration(ATRNode * node) {
             else if (id.type == CHAR)
                 output_stream << "char ";
             output_stream << id.name << " = ";
+            output_stream.close();
         }
         else if (node->children[i].id == -1 && node->children[i].attr == "const_value") {
             generator_const_value(&node->children[i]);
@@ -448,9 +452,15 @@ void generator_subprogram_body(ATRNode * node) {
     output_stream << "{" << endl;
     N++;
     output_stream.close();
-    generator_const_declarations(&node->children[0]);
-    generator_var_declarations(&node->children[1]);
-    generator_compound_statement(&node->children[2]);
+    int i;
+    for(i = 0; i < node->children.size(); i++) {
+        if(node->children[i].attr == "const_declarations")
+            generator_const_declarations(&node->children[i]);
+        else if(node->children[i].attr == "var_declarations")
+            generator_var_declarations(&node->children[i]);
+        else
+            generator_compound_statement(&node->children[i]);
+    }
     if (type == 1 && numofe == 1) {
         space(N);
         output_stream.open(fname, ios::app|ios::in|ios::out);
@@ -711,11 +721,13 @@ void generator_statement(ATRNode * node) {
             output_stream.close();
         }
     }
-    else {
+    /*
+     * else {
         output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << endl;
         output_stream.close();
     }
+     */
 
 }
 
