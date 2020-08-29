@@ -7,12 +7,14 @@
 
 using namespace std;
 
+const char * fname;
+
 //@
 //programstruct -> program_head ; program_body.
 void generator_programstruct(ATRNode * node) {
     cout << "generator_programstruct" << endl;
     fstream output_stream;
-    output_stream.open("output.txt", ios::out);
+    output_stream.open(fname, ios::out);
     generator_pretreatment();
     generator_program_body(&node->children[2]);
     output_stream.close();
@@ -23,7 +25,7 @@ void generator_programstruct(ATRNode * node) {
 void generator_pretreatment() {
     cout << "generator_pretreatment" << endl;
     fstream output_stream;
-    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+    output_stream.open(fname, ios::app|ios::in|ios::out);
     output_stream << "#include <stdio.h>" << endl;
     output_stream.close();
 };
@@ -35,16 +37,16 @@ void generator_program_body(ATRNode * node) {
     fstream output_stream;
 
     generator_const_declarations(&node->children[0]);
-    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+    output_stream.open(fname, ios::app|ios::in|ios::out);
     output_stream << endl;
     output_stream.close();
     generator_var_declarations(&node->children[1]);
-    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+    output_stream.open(fname, ios::app|ios::in|ios::out);
     output_stream << endl;
     output_stream.close();
     generator_subprogram_declarations(&node->children[2]);
     type = 0;
-    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+    output_stream.open(fname, ios::app|ios::in|ios::out);
     output_stream << endl;
     space(N);
     output_stream << "void main() {" << endl;
@@ -53,7 +55,7 @@ void generator_program_body(ATRNode * node) {
     generator_compound_statement(&node->children[3]);
     N--;
     space(N);
-    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+    output_stream.open(fname, ios::app|ios::in|ios::out);
     output_stream << "}";
 
     output_stream.close();
@@ -95,7 +97,7 @@ void generator_const_declaration(ATRNode * node) {
         else if (node->children[i].id == IDENTIFIER) {
             T_item id = search_table(node->children[i].attr, true);
             space(N);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << "const ";
             if (id.type == INTEGER)
                 output_stream << "int ";
@@ -107,7 +109,7 @@ void generator_const_declaration(ATRNode * node) {
         }
         else if (node->children[i].id == -1 && node->children[i].attr == "const_value") {
             generator_const_value(&node->children[i]);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << ";" << endl;
             output_stream.close();
         }
@@ -122,7 +124,7 @@ void generator_const_value(ATRNode * node) {
     cout << "generator_const_value" << endl;
     fstream output_stream;
     if (node->children[0].id == PLUS || node->children[0].id == MINUS) {
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << node->children[0].attr;
         output_stream.close();
         generator_num(&node->children[1]);
@@ -130,7 +132,7 @@ void generator_const_value(ATRNode * node) {
     else if (node->children[0].id == -1 && node->children[0].attr == "num")
         generator_num(&node->children[0]);
     else {
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << "'" << node->children[1].attr << "'";
         output_stream.close();
     }
@@ -142,7 +144,7 @@ void generator_const_value(ATRNode * node) {
 void generator_num(ATRNode * node) {
     cout << "generator_num" << endl;
     fstream output_stream;
-    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+    output_stream.open(fname, ios::app|ios::in|ios::out);
     output_stream << node->children[0].attr;
     output_stream.close();
 }
@@ -174,7 +176,7 @@ void generator_var_declaration(ATRNode * node){
         if (temp.children[0].attr == "basic_type"){
             vector<ATRNode> idlist;
             generator_idlist(&node->children[2], &idlist);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             for (i = 0; i < idlist.size() -1; i++){
                 output_stream << idlist[i].attr << ", ";
             }
@@ -184,18 +186,18 @@ void generator_var_declaration(ATRNode * node){
         else{
             vector<ATRNode> idlist;
             generator_idlist(&node->children[2], &idlist);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             for (i = 0; i < idlist.size() -1; i++){
                 output_stream << idlist[i].attr;
                 output_stream.close();
                 generator_period(&temp.children[2]);
-                output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
                 output_stream << ", ";
             }
             output_stream << idlist[idlist.size() - 1].attr;
             output_stream.close();
             generator_period(&temp.children[2]);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << ";" << endl;
             output_stream.close();
         }
@@ -207,7 +209,7 @@ void generator_var_declaration(ATRNode * node){
         if (temp.children[0].attr == "basic_type"){
             vector<ATRNode> idlist;
             generator_idlist(&node->children[0], &idlist);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             for (i = 0; i < idlist.size() -1; i++){
                 output_stream << idlist[i].attr << ", ";
             }
@@ -217,18 +219,18 @@ void generator_var_declaration(ATRNode * node){
         else{
             vector<ATRNode> idlist;
             generator_idlist(&node->children[0], &idlist);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             for (i = 0; i < idlist.size() -1; i++){
                 output_stream << idlist[i].attr;
                 output_stream.close();
                 generator_period(&temp.children[2]);
-                output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
                 output_stream << ", ";
             }
             output_stream << idlist[idlist.size() - 1].attr;
             output_stream.close();
             generator_period(&temp.children[2]);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << ";" << endl;
             output_stream.close();
         }
@@ -240,7 +242,7 @@ void generator_var_declaration(ATRNode * node){
 void generator_type(ATRNode * node){
     cout << "generator_type" << endl;
     fstream output_stream;
-    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+    output_stream.open(fname, ios::app|ios::in|ios::out);
 
     if (node->children[0].id == -1 && node->children[0].attr == "basic_type")
         generator_basic_type(&node->children[0]);
@@ -255,7 +257,7 @@ void generator_type(ATRNode * node){
 void generator_basic_type(ATRNode * node){
     cout << "generator_basic_type" << endl;
     fstream output_stream;
-    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+    output_stream.open(fname, ios::app|ios::in|ios::out);
     if (node->children[0].id == INTEGER || node->children[0].id == BOOLEAN){
         output_stream << "int";
     }
@@ -273,7 +275,7 @@ void generator_basic_type(ATRNode * node){
 void generator_period(ATRNode * node){
     cout << "generator_period" << endl;
     fstream output_stream;
-    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+    output_stream.open(fname, ios::app|ios::in|ios::out);
 
     if (node->children[0].id == -1 && node->children[0].attr == "period"){
         generator_period(&node->children[0]);
@@ -313,11 +315,11 @@ void generator_subprogram(ATRNode * node){
     space(N);
     fstream output_stream;
     generator_subprogram_head(&node->children[0]);
-    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+    output_stream.open(fname, ios::app|ios::in|ios::out);
     output_stream << " ";
     output_stream.close();
     generator_subprogram_body(&node->children[2]);
-    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+    output_stream.open(fname, ios::app|ios::in|ios::out);
     output_stream << endl;
     output_stream.close();
 }
@@ -330,7 +332,7 @@ void generator_subprogram_head(ATRNode * node){
     T_item item = search_table(node->children[1].attr, true);
     curTable = item.p;
     if (node->children[0].id == PROCEDURE){
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << "void " << node->children[1].attr;
         output_stream.close();
         generator_formal_parameter(&node->children[2]);
@@ -338,7 +340,7 @@ void generator_subprogram_head(ATRNode * node){
     }
     else if (node->children[0].id == FUNCTION){
         generator_basic_type(&node->children[4]);
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << " ";   // basic type后不带空格手动添加
         output_stream << node->children[1].attr;
         output_stream.close();
@@ -353,16 +355,16 @@ void generator_formal_parameter(ATRNode * node){
     cout << "generator_formal_parameter" << endl;
     fstream output_stream;
     if (node->children.size() == 3){
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << "(";
         output_stream.close();
         generator_parameter_list(&node->children[1]);
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << ")";
         output_stream.close();
     }
     else if (node->children.empty()){
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << "()";
         output_stream.close();
     }
@@ -375,7 +377,7 @@ void generator_parameter_list(ATRNode * node){
     fstream output_stream;
     if (node->children[0].id == -1 && node->children[0].attr == "parameter_list"){
         generator_parameter_list(&node->children[0]);
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << ", ";
         output_stream.close();
         generator_parameter(&node->children[2]);
@@ -407,12 +409,12 @@ void generator_var_parameter(ATRNode * node) {
     generator_idlist(&temp.children[0], &idlist);
     for (i = 0; i < idlist.size() - 1; i++) {
         generator_basic_type(&temp.children[2]);
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << " * " << idlist[i].attr << ", ";
         output_stream.close();
     }
     generator_basic_type(&temp.children[2]);
-    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+    output_stream.open(fname, ios::app|ios::in|ios::out);
     output_stream << " * " << idlist[idlist.size() - 1].attr;
     output_stream.close();
 }
@@ -427,12 +429,12 @@ void generator_value_parameter(ATRNode * node) {
     generator_idlist(&node->children[0], &idlist);
     for (i = 0; i < idlist.size() - 1; i++) {
         generator_basic_type(&node->children[2]);
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << " " << idlist[i].attr << ", ";
         output_stream.close();
     }
     generator_basic_type(&node->children[2]);
-    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+    output_stream.open(fname, ios::app|ios::in|ios::out);
     output_stream << " " << idlist[idlist.size() - 1].attr;
     output_stream.close();
 }
@@ -442,7 +444,7 @@ void generator_value_parameter(ATRNode * node) {
 void generator_subprogram_body(ATRNode * node) {
     cout << "generator_subprogram_body" << endl;
     fstream  output_stream;
-    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+    output_stream.open(fname, ios::app|ios::in|ios::out);
     output_stream << "{" << endl;
     N++;
     output_stream.close();
@@ -451,16 +453,16 @@ void generator_subprogram_body(ATRNode * node) {
     generator_compound_statement(&node->children[2]);
     if (type == 1 && numofe == 1) {
         space(N);
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << "return ";
         output_stream.close();
         generator_expression(e);
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << ";" << endl;
         numofe--;
         output_stream.close();
     }
-    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+    output_stream.open(fname, ios::app|ios::in|ios::out);
     N--;
     space(N);
     output_stream << "}";
@@ -514,11 +516,11 @@ void generator_statement(ATRNode * node) {
                 space(N);
                 T_item id = search_table(node->children[0].children[0].attr, false);
                 generator_variable(&node->children[0]);
-                output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
                 output_stream << " = ";
                 output_stream.close();
                 generator_expression(&node->children[2]);
-                output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
                 output_stream << ";" << endl;
                 output_stream.close();
             }
@@ -527,29 +529,29 @@ void generator_statement(ATRNode * node) {
         else if (node->children[0].id == -1 && node->children[0].attr == "procedure_call") {
             space(N);
             generator_procedure_call(&node->children[0]);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << ";" << endl;
             output_stream.close();
         }
         else if (node->children[0].id == -1 && node->children[0].attr == "compound_statement") {
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << "{" << endl;
             N++;
             output_stream.close();
             generator_compound_statement(&node->children[0]);
             N--;
             space(N);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << "}" << endl;
             output_stream.close();
         }
         else if (node->children[0].id == IF) {
             space(N);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << "if " << "(";
             output_stream.close();
             generator_expression(&node->children[1]);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << ") ";
             output_stream << "{" << endl;
             N++;
@@ -557,16 +559,16 @@ void generator_statement(ATRNode * node) {
             generator_statement(&node->children[3]);
             if (type == 1 && numofe == 1) {
                 space(N);
-                output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
                 output_stream << "return ";
                 output_stream.close();
                 generator_expression(e);
-                output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
                 output_stream << ";" << endl;
                 numofe--;
                 output_stream.close();
             }
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             N--;
             space(N);
             output_stream << "}" << endl;
@@ -575,15 +577,15 @@ void generator_statement(ATRNode * node) {
         }
         else if (node->children[0].id == FOR) {
             space(N);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << "for (" << node->children[1].attr << " = ";
             output_stream.close();
             generator_expression(&node->children[3]);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << "; " << node->children[1].attr << " <= ";
             output_stream.close();
             generator_expression(&node->children[5]);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << "; " << node->children[1].attr << "++" << ") ";
             output_stream << "{" << endl;
             N++;
@@ -591,28 +593,28 @@ void generator_statement(ATRNode * node) {
             generator_statement(&node->children[7]);
             if (type == 1 && numofe == 1) {
                 space(N);
-                output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
                 output_stream << "return ";
                 output_stream.close();
                 generator_expression(e);
-                output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
                 output_stream << ";" << endl;
                 numofe--;
                 output_stream.close();
             }
             N--;
             space(N);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << "}" << endl;
             output_stream.close();
         }
         else if (node->children[0].id == WHILE) {
             space(N);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << "while (";
             output_stream.close();
             generator_expression(&node->children[1]);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << ") ";
             output_stream << "{" << endl;
             N++;
@@ -620,18 +622,18 @@ void generator_statement(ATRNode * node) {
             generator_statement(&node->children[3]);
             if (type == 1 && numofe == 1) {
                 space(N);
-                output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
                 output_stream << "return ";
                 output_stream.close();
                 generator_expression(e);
-                output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
                 output_stream << ";" << endl;
                 numofe--;
                 output_stream.close();
             }
             N--;
             space(N);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << "}" << endl;
             output_stream.close();
         }
@@ -639,7 +641,7 @@ void generator_statement(ATRNode * node) {
             space(N);
             vector<ATRNode> varlist;
             generator_variable_list(&node->children[2], &varlist);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << "scanf(\"";
             int i;
             for (i = 0; i < varlist.size(); i++) {
@@ -659,18 +661,18 @@ void generator_statement(ATRNode * node) {
             for (i = 0; i < varlist.size(); i++) {
                 T_item id = search_table(varlist[i].children[0].attr, false);
                 if(!id.is_ref) {
-                    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                    output_stream.open(fname, ios::app|ios::in|ios::out);
                     output_stream << "&";
                     output_stream.close();
                 }
                 generator_variable_read(&varlist[i]);
                 if (i == varlist.size() - 1)
                     continue;
-                output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
                 output_stream << ", ";
                 output_stream.close();
             }
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << ");" << endl;
             output_stream.close();
         }
@@ -678,7 +680,7 @@ void generator_statement(ATRNode * node) {
             space(N);
             vector<ATRNode> exlist;
             generator_expression_list(&node->children[2], &exlist);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << "printf(\"";
             int t;
             int i;
@@ -700,17 +702,17 @@ void generator_statement(ATRNode * node) {
                 generator_expression(&exlist[i]);
                 if (i == exlist.size() - 1)
                     continue;
-                output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
                 output_stream << ", ";
                 output_stream.close();
             }
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << ");" << endl;
             output_stream.close();
         }
     }
     else {
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << endl;
         output_stream.close();
     }
@@ -741,7 +743,7 @@ void generator_variable(ATRNode * node){
             tempTable = curTable;
             curTable = id.p;
         }
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         if(id.is_ref) output_stream << "*";
         output_stream << id.name;
         output_stream.close();
@@ -760,7 +762,7 @@ void generator_variable_read(ATRNode * node){
             tempTable = curTable;
             curTable = id.p;
         }
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << id.name;
         output_stream.close();
         generator_id_varpart(&node->children[1]);
@@ -779,16 +781,25 @@ void generator_id_varpart(ATRNode * node){
 
         generator_expression_list(&node->children[1], &exlist);
         for (i = 0; i < exlist.size(); i++){
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << "[";
             output_stream.close();
-            string num = exlist[i].children[0].children[0].children[0].children[0].children[0].attr;
-            int a = strtol(num.c_str(), nullptr, 10);
-            int b = (*curTable)[i].type;
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
-            output_stream << a - b;
-            output_stream << "]";
-            output_stream.close();
+            ATRNode temp = exlist[i].children[0].children[0].children[0];
+            if(temp.children[0].attr == "num") {
+                string num = temp.children[0].children[0].attr;
+                int a = strtol(num.c_str(), nullptr, 10);
+                int b = (*curTable)[i].type;
+                output_stream.open(fname, ios::app|ios::in|ios::out);
+                output_stream << a - b;
+                output_stream << "]";
+                output_stream.close();
+            }
+            else {
+                generator_variable(&temp.children[0]);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
+                output_stream << "]";
+                output_stream.close();
+            }
         }
         curTable = tempTable;
     }
@@ -804,7 +815,7 @@ void generator_procedure_call(ATRNode * node){
     fstream output_stream;
 
     if (node->children[0].id == IDENTIFIER){
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << node->children[0].attr;
         if (node->children.size() == 4){
             T_item id = search_table(node->children[0].attr, false);
@@ -819,18 +830,18 @@ void generator_procedure_call(ATRNode * node){
             generator_expression_list(&node->children[2], &exlist);
             for (i = 0; i < exlist.size(); i++){
                 if((*p1)[i + 1].is_ref) {
-                    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                    output_stream.open(fname, ios::app|ios::in|ios::out);
                     output_stream << "&";
                     output_stream.close();
                 }
                 generator_expression(&exlist[i]);
                 if (i == exlist.size() - 1)
                     continue;
-                output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
                 output_stream << ", ";
                 output_stream.close();
             }
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << ")";
             output_stream.close();
         }
@@ -849,7 +860,7 @@ void generator_else_part(ATRNode * node){
 
     if (node->children.size() == 2){
         if (node->children[0].id == ELSE){
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             space(N);
             output_stream << "else {" << endl;
             output_stream.close();
@@ -857,16 +868,16 @@ void generator_else_part(ATRNode * node){
             generator_statement(&node->children[1]);
             if (type == 1 && numofe == 1) {
                 space(N);
-                output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
                 output_stream << "return ";
                 output_stream.close();
                 generator_expression(e);
-                output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
                 output_stream << ";" << endl;
                 numofe--;
                 output_stream.close();
             }
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             N--;
             space(N);
             output_stream << "}" << endl;
@@ -903,11 +914,11 @@ void generator_expression(ATRNode * node){
             generator_simple_expression(&node->children[i]);
         }
         else if (node->children[i].id == -1 && node->children[i].attr == "relop"){
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << " ";
             output_stream.close();
             generator_relop(&node->children[i]);
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << " ";
             output_stream.close();
         }
@@ -922,11 +933,11 @@ void generator_simple_expression(ATRNode * node){
 
     if (node->children[0].id == -1 && node->children[0].attr == "simple_expression"){
         generator_simple_expression(&node->children[0]);
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << " ";
         output_stream.close();
         generator_addop(&node->children[1]);
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << " ";
         output_stream.close();
         generator_term(&node->children[2]);
@@ -946,11 +957,11 @@ void generator_term(ATRNode * node){
 
     if (node->children[0].id == -1 && node->children[0].attr == "term"){
         generator_term(&node->children[0]);
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << " ";
         output_stream.close();
         generator_mulop(&node->children[1]);
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << " ";
         output_stream.close();
         generator_factor(&node->children[2]);
@@ -980,7 +991,7 @@ void generator_factor(ATRNode * node){
     else if (node->children[0].id == IDENTIFIER){
         T_item id = search_table(node->children[0].attr, false);
         vector<T_item> *p1 = id.p;
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << id.name;
         vector<ATRNode> exlist;
         generator_expression_list(&node->children[2], &exlist);
@@ -990,38 +1001,38 @@ void generator_factor(ATRNode * node){
         output_stream.close();
         for (i = 0; i < exlist.size(); i++){
             if((*p1)[i + 1].is_ref) {
-                output_stream.open("output.txt", ios::app|ios::in|ios::out);
+                output_stream.open(fname, ios::app|ios::in|ios::out);
                 output_stream << "&";
                 output_stream.close();
             }
             generator_expression(&exlist[i]);
             if (i == exlist.size() - 1)
                 continue;
-            output_stream.open("output.txt", ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << ", ";
             output_stream.close();
         }
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << ")";
         output_stream.close();
     }
     else if (node->children[0].attr == "("){
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << "(";
         output_stream.close();
         generator_expression(&node->children[1]);
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << ")";
         output_stream.close();
     }
     else if (node->children[0].id == NOT){
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << "!";
         output_stream.close();
         generator_factor(&node->children[1]);
     }
     else if (node->children[0].attr == "-"){
-        output_stream.open("output.txt", ios::app|ios::in|ios::out);
+        output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << "-";
         output_stream.close();
         generator_factor(&node->children[1]);
@@ -1033,7 +1044,7 @@ void generator_factor(ATRNode * node){
 void generator_relop(ATRNode * node){
     cout << "generator_relop" << endl;
     fstream output_stream;
-    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+    output_stream.open(fname, ios::app|ios::in|ios::out);
     if (node->children[0].attr == ">"){
         output_stream << ">";
     }
@@ -1060,7 +1071,7 @@ void generator_relop(ATRNode * node){
 void generator_addop(ATRNode * node){
     cout << "generator_addop" << endl;
     fstream output_stream;
-    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+    output_stream.open(fname, ios::app|ios::in|ios::out);
     if (node->children[0].attr == "+"){
         output_stream << "+";
     }
@@ -1078,7 +1089,7 @@ void generator_addop(ATRNode * node){
 void generator_mulop(ATRNode * node){
     cout << "generator_mulop" << endl;
     fstream output_stream;
-    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+    output_stream.open(fname, ios::app|ios::in|ios::out);
 
     if (node->children[0].attr == "*"){
         output_stream << "*";
@@ -1183,13 +1194,20 @@ int gettype(int type1, int type2){
 void space(int n) {
     int i;
     fstream output_stream;
-    output_stream.open("output.txt", ios::app|ios::in|ios::out);
+    output_stream.open(fname, ios::app|ios::in|ios::out);
     for(i = 0; i < n; i++) {
         output_stream << "    ";
     }
     output_stream.close();
 }
 
-void generate_code(ATRNode * node) {
+void generate_code(ATRNode * node, const char * file_name) {
+    char *temp = new char[strlen(file_name)+1];
+    strcpy(temp, file_name);
+    int i = 0;
+    while(file_name[i] != '.') i++;
+    temp[i + 1] = 'c';
+    temp[i + 2] = '\0';
+    fname = temp;
     generator_programstruct(node);
 }

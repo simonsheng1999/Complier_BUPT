@@ -6,18 +6,19 @@
 #include "compile.h"
 
 
-int main()
+int main(int argc, char ** argv)
 {
     string temp;
     int line_no = 1;
-    const char* file_path = "test_code_1.txt";
+    const char* file_path;
+    if(argc == 1) file_path = "file.txt";
+    else file_path = argv[1];
     cout << "------------------------------------------------------" << endl;
     cout << "Raw code\n" << endl;
     // 原始代码输出
     ifstream infile(file_path);
-    while (!infile.eof())
+    while (getline(infile, temp))
     {
-        getline(infile, temp);
         printf("%-4d", line_no);
         line_no++;
         cout << temp << endl;
@@ -31,8 +32,7 @@ int main()
     semantic(root_node);
     print_stable();
     // 代码生成
-    generate_code(&root_node);
+    generate_code(&root_node, file_path);
     //getch();
     return 0;
 }
-

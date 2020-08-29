@@ -88,7 +88,7 @@ void semantic(const ATRNode & node);
 T_item search_table(const string & name, bool only_cur_table);
 void insert_symbol_table(const T_item & item);
 void print_stable();
-void generate_code(ATRNode * node);
+void generate_code(ATRNode * node, const char* file_path);
 
 #define YYSTYPE ATRNode     //把YYSTYPE(即yylval变量)重定义为struct类型，这样lex就能向yacc返回更多的数据了
 

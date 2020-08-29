@@ -574,6 +574,7 @@ TYPE_info generate_20(const ATRNode & node)
     {
         generate_25(node.children[2], type_info);
     }
+    (*para_table)[0].p = curTable;
     return type_info;
 }
 
