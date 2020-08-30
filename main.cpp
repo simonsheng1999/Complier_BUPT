@@ -30,9 +30,12 @@ int main(int argc, char ** argv)
     cout << "------------------------------------------------------" << endl;
     // 语义分析
     semantic(root_node);
-    print_stable();
+    cout << "Symbol Table" << endl;
+    output_table(curTable, 0);
+    cout << "------------------------------------------------------" << endl;
     // 代码生成
     generate_code(&root_node, file_path);
-    //getch();
+    // getch();
     return 0;
 }
+

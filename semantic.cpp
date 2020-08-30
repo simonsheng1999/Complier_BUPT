@@ -154,13 +154,19 @@ void init_temp_tables()
     }
 }
 
-void print_stable()
+void output_table(vector<T_item>* p, int num_layer=0)
 {
-    cout << "Symbol Table" << endl;
-    printf("\n%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\n", "ID", "TYPE", "IS_REF", "DIMENSION", "LINE", "SUBTABLE");
-    for(auto &i : SymbolTable)
+    string blank;
+    for(int k=0; k<num_layer; k++)
     {
-        printf("%-10s\t%-10s\t%-10s\t%-10d\t%-10d",i.name.c_str(), show_type(i.type).c_str(),
+        blank += "          ";
+    }
+    printf("\n%s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\n", blank.c_str(), "ID", "TYPE", "IS_REF",
+           "DIMENSION", "LINE", "SUBTABLE");
+    int j = 0;
+    for(auto &i : *p)
+    {
+        printf("%s\t%-10s\t%-10s\t%-10s\t%-10d\t%-10d", blank.c_str(), i.name.c_str(), show_type(i.type).c_str(),
                is_ref_var(i.is_ref).c_str(), i.dimension, i.line);
         if(i.p == nullptr)
         {
@@ -169,23 +175,14 @@ void print_stable()
         else
         {
             printf("\t%-10s\n", "YES");
-            printf("\n%-10s%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\n", "", "ID", "TYPE", "IS_REF", "DIMENSION", "LINE", "SUBTABLE");
-            for(auto &j: *i.p)
+            if(j != 0)
             {
-                printf("%-10s%-10s\t%-10s\t%-10s\t%-10d\t%-10d","", j.name.c_str(), show_type(j.type).c_str(),
-                       is_ref_var(j.is_ref).c_str(), j.dimension, j.line);
-                if(j.p == nullptr)
-                {
-                    printf("\t%-10s\n", "NO");
-                }
-                else
-                {
-                    printf("\t%-10s\n", "YES");
-                }
+                output_table(i.p, num_layer+1);
             }
-            printf("\n");
         }
+        j++;
     }
+    printf("\n");
 }
 
 // 针对函数调用的查找
