@@ -815,22 +815,14 @@ void generator_id_varpart(ATRNode * node){
             output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << "[";
             output_stream.close();
-            ATRNode temp = exlist[i].children[0].children[0].children[0];
-            if(temp.children[0].attr == "num") {
-                string num = temp.children[0].children[0].attr;
-                int a = strtol(num.c_str(), nullptr, 10);
-                int b = (*curTable)[i].type;
-                output_stream.open(fname, ios::app|ios::in|ios::out);
-                output_stream << a - b;
-                output_stream << "]";
-                output_stream.close();
+            int b = (*curTable)[i].type;
+            generator_expression(&exlist[i]);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
+            if(b != 0) {
+                output_stream << " - " << b;
             }
-            else {
-                generator_variable(&temp.children[0]);
-                output_stream.open(fname, ios::app|ios::in|ios::out);
-                output_stream << "]";
-                output_stream.close();
-            }
+            output_stream << "]";
+            output_stream.close();
         }
         curTable = tempTable;
     }
