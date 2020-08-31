@@ -161,26 +161,36 @@ void output_table(vector<T_item>* p, int num_layer=0)
     {
         blank += "          ";
     }
-    printf("\n%s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\n", blank.c_str(), "ID", "TYPE", "IS_REF",
-           "DIMENSION", "LINE", "SUBTABLE");
-    int j = 0;
-    for(auto &i : *p)
+    if((*p)[0].name.empty())
     {
-        printf("%s\t%-10s\t%-10s\t%-10s\t%-10d\t%-10d", blank.c_str(), i.name.c_str(), show_type(i.type).c_str(),
-               is_ref_var(i.is_ref).c_str(), i.dimension, i.line);
-        if(i.p == nullptr)
+        printf("\n%s\t%-10s\t%-10s\n", blank.c_str(), "START", "END");
+        for(auto &i : *p)
         {
-            printf("\t%-10s\n", "NO");
+            printf("%s\t%-10d\t%-10d\n", blank.c_str(), i.type, i.dimension);
         }
-        else
+    }
+    else{
+        printf("\n%s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\n", blank.c_str(), "ID", "TYPE", "IS_REF",
+               "DIMENSION", "LINE", "SUBTABLE");
+        int j = 0;
+        for(auto &i : *p)
         {
-            printf("\t%-10s\n", "YES");
-            if(j != 0)
+            printf("%s\t%-10s\t%-10s\t%-10s\t%-10d\t%-10d", blank.c_str(), i.name.c_str(), show_type(i.type).c_str(),
+                   is_ref_var(i.is_ref).c_str(), i.dimension, i.line);
+            if(i.p == nullptr)
             {
-                output_table(i.p, num_layer+1);
+                printf("\t%-10s\n", "NO");
             }
+            else
+            {
+                printf("\t%-10s\n", "YES");
+                if(j != 0)
+                {
+                    output_table(i.p, num_layer+1);
+                }
+            }
+            j++;
         }
-        j++;
     }
     printf("\n");
 }
@@ -620,6 +630,11 @@ void generate_25(const ATRNode & node, TYPE_info & type_info)
     }
     int start_index = stoi(node.children[2].attr);
     int end_index = stoi(node.children[4].attr);
+    if(start_index >= end_index)
+    {
+        cout << "Line " << node.children[2].line << "\tinvalid range of array" <<endl;
+        exit_error();
+    }
     T_item item("", start_index, end_index, 0, nullptr);
     type_info.dim += 1;
     type_info.p->push_back(item);
@@ -630,6 +645,11 @@ void generate_26(const ATRNode & node, TYPE_info & type_info)
 {
     int start_index = stoi(node.children[0].attr);
     int end_index = stoi(node.children[2].attr);
+    if(start_index >= end_index)
+    {
+        cout << "Line " << node.children[2].line << "\tinvalid range of array" <<endl;
+        exit_error();
+    }
     T_item item("", start_index, end_index, 0, nullptr);
     type_info.dim = 1;
     type_info.p->push_back(item);
