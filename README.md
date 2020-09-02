@@ -30,6 +30,11 @@
 
 #### 2、源/目标语言的映射关系：  
 
+##### 1、程序头映射
+
+	program sample (input, output);	=> #include<stdio.h>	
+
+
 
 ## 三、开发环境：  
 
