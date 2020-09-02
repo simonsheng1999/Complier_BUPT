@@ -36,15 +36,20 @@
 
 ##### 常量声明映射
 
-	const z = 's'; => const char z = 's';	
+	const z = 's'; => const char z = 's';
+	const z = 1; => const int z = 1;
+	const z = 3.14; => const float z = 3;
 	
 ##### 变量声明映射
 	
 	var z: integer; => int z;
+	var z: real; => float z;
+	var z: char; => char z;
+	var z: boolean; => int z;
 
 ##### 子程序声明映射
 	
-	procedure test(var a:integer);                  void test(int a){
+	procedure test(var b:integer);                  void test(int *b){
         begin                                 =>	...
         	...					}
         end;	
@@ -66,7 +71,8 @@
 	
 ##### 子程序调用语句映射
 
-	test(a); => test(a);
+	test(a); => test(&a);   (a为int型变量)
+	gcd(a); => gcd(a);
 	
 ##### if语句映射
 
@@ -75,7 +81,6 @@
 ##### for循环语句映射
 	
 	for i := 10 downto 1 do ...; => for(i = 10; i >= 1; i--){...}
-	
 	for i := 1 to 10 do ...; => for(i = 1; i <= 10; i++){...}
 	
 ##### while循环语句映射
@@ -84,13 +89,14 @@
 	
 ##### read语句映射
 
-	read(a); => scanf("%d", &a);
+	read(a); => scanf("%d", &a);	(a为int型变量)
+	read(a); => scanf("%d", a);	(a为int型指针变量）
 	
 ##### write语句映射
 
 	write("Hello World!\n"); => printf("Hello World!\n");
-	
-	write(a); => printf("%d", a);
+	write(a); => printf("%d", a);	(a为int型变量)
+	write(a); => printf("%d", *a);	(a为int型指针变量)
 
 ## 三、开发环境：  
 
