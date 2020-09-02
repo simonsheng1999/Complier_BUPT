@@ -73,8 +73,25 @@
 	if x >= 85 then a := 1; else a := 2; => if(x >= 85) {a = 1;} else {a = 2;}
 	
 ##### for循环语句映射
+	
+	for i := 10 downto 1 do ...; => for(i = 10; i >= 1; i--){...}
+	
+	for i := 1 to 10 do ...; => for(i = 1; i <= 10; i++){...}
+	
+##### while循环语句映射
+	
+	while x >= 85 do ... => while(x >= 85) {...}
+	
 ##### read语句映射
+
+	read(a); => scanf("%d", &a);
+	
 ##### write语句映射
+
+	write("Hello World!\n"); => printf("Hello World!\n");
+	
+	write(a); => printf("%d", a);
+
 ## 三、开发环境：  
 
 &#160;&#160;&#160;&#160;&#160;&#160;&#160;
