@@ -52,7 +52,7 @@
 	function gcd(a:integer):integer;		int gcd(int a){	
         begin					=>	...	
    		gcd := 1;				return 1;	
-	end;						}	
+	end						}	
 	
 ##### 复杂语句映射
 
