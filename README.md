@@ -44,15 +44,15 @@
 
 ##### 子程序声明映射
 	
-	procedure test(var a:integer);			void test(int a){	
-        begin					=>	...	
+	procedure test(var a:integer);                  void test(int a){	
+        begin                                 =>	...	
         	...					}	
         end;	
 	
 	function gcd(a:integer):integer;		int gcd(int a){	
-        begin					=>	...	
+        begin				      =>	...	
    		gcd := 1;				return 1;	
-		end;						}	
+        end;						}	
 	
 ##### 复杂语句映射
 
