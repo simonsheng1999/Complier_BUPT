@@ -50,7 +50,7 @@
         end;	
 	
 	function gcd(a:integer):integer;		int gcd(int a){	
-        begin				      =>	...	
+        begin				      =>        ...
    		gcd := 1;				return 1;	
         end;						}	
 	
