@@ -34,7 +34,15 @@
 
 	program sample (input, output);	=> #include<stdio.h>	
 
+##### 2、常量声明映射
 
+	const z = 's'; => const char z = 's';	
+	
+##### 3、变量声明映射
+
+##### 4、子程序声明映射
+
+##### 5、复杂语句映射
 
 ## 三、开发环境：  
 
