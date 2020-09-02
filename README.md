@@ -26,23 +26,35 @@
 
 ### 4、代码生成： 
 
-#### 1、目标语言：C语言  
+#### （1）目标语言：C语言  
 
-#### 2、源/目标语言的映射关系：  
+#### （2）源/目标语言的映射关系：  
 
-##### 1、程序头映射
+##### 程序头映射
 
 	program sample (input, output);	=> #include<stdio.h>	
 
-##### 2、常量声明映射
+##### 常量声明映射
 
 	const z = 's'; => const char z = 's';	
 	
-##### 3、变量声明映射
+##### 变量声明映射
+	
+	var z: integer; => int z;
 
-##### 4、子程序声明映射
-
-##### 5、复杂语句映射
+##### 子程序声明映射
+	
+	procedure test(var a:integer);			void test(int a){	
+            begin				=>	...	
+                ...					}	
+            end;	
+	
+	function gcd(a:integer):integer;		int gcd(int a){	
+        begin					=>	...	
+    		gcd := 1;				return 1;	
+    	end;						}	
+	
+##### 复杂语句映射
 
 ## 三、开发环境：  
 
