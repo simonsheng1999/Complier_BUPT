@@ -45,13 +45,13 @@
 ##### 子程序声明映射
 	
 	procedure test(var a:integer);			void test(int a){	
-            begin				=>	...	
-                ...					}	
-            end;	
+        begin					=>	...	
+        	...					}	
+        end;	
 	
 	function gcd(a:integer):integer;		int gcd(int a){	
         begin					=>	...	
-    		gcd := 1;				return 1;	
+   		gcd := 1;				return 1;	
     	end;						}	
 	
 ##### 复杂语句映射
