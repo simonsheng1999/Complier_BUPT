@@ -1228,7 +1228,9 @@ YY_RULE_SETUP
 case 58:
 YY_RULE_SETUP
 #line 214 "lex.l"
-{yyerror("Error:invalid input.\n");
+{	string err = "Error:invalid input at : "+to_string(line);
+	yyerror(err.c_str());
+	exit(66);
                               }
 	YY_BREAK
 case 59:
