@@ -51,10 +51,14 @@ void generator_program_body(ATRNode * node) {
             type = 0;
             output_stream.open(fname, ios::app|ios::in|ios::out);
             space(N);
-            output_stream << "void main() {" << endl;
+            output_stream << "int main() {" << endl;
             N++;
             output_stream.close();
             generator_compound_statement(&node->children[3]);
+            output_stream.open(fname, ios::app|ios::in|ios::out);
+            space(N);
+            output_stream << "return 0;" << endl;
+            output_stream.close();
             N--;
             space(N);
             output_stream.open(fname, ios::app|ios::in|ios::out);
