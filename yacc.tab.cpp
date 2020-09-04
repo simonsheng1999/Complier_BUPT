@@ -2707,7 +2707,8 @@ yyreturn:
 
 void yyerror(const char *s)			//当yacc遇到语法错误时，会回调yyerror函数，并且把错误信息放在参数s中
 {
-	cerr<<s<<endl;					//直接输出错误信息
+	cout  << s << " at line " << line << endl;					//直接输出错误信息
+	exit(90);
 }
 
 void postorder_traversal(const ATRNode& Node)

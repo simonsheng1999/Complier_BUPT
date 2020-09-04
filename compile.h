@@ -80,6 +80,7 @@ extern vector<T_item> SymbolTable;
 extern vector<vector<T_item>> temp_tables;
 extern vector<T_item> * curTable;
 extern ATRNode root_node;
+extern int line;
 
 ATRNode newNode(int, string, int);
 void postorder_traversal(const ATRNode& Node);
