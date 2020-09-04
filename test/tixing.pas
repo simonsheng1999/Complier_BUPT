@@ -1,8 +1,9 @@
-program Tixing; {程序首部}
-　var a,b,h,s:real; {程序说明部分}
+program Tixing; //{程序首部}
+　var a,b,h,s:real; //{程序说明部分}
 begin
-　write('Input a,b,h:');
-　readln(a,b,h); {程序执行部分}
+　write("Input a,b,h:");
+　readln(a,b,h); //{程序执行部分}
 　s:=(a+b)*h/2;
-　write('s=',s:10:3);
+　write("s = ");
+  write(s)
 end.

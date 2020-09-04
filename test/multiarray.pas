@@ -8,12 +8,12 @@ program multiarray;
 　　　begin
 　　　　for j:=1 to n do
 　　　　　read(a[i,j]);
-　　　　readln;
 　　　end;
 　　for i:=1 to n do
 　　begin
 　　　for j:=1 to n do
-　　　　write(a[j,i]:5);
-　　　writeln;
+　　　　write(a[j,i]);
+       write(" ");
 　　end;
+    write("\n");
 　　end.
