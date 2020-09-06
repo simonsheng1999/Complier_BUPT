@@ -1,17 +1,19 @@
 program multiarray;
   const n=3;
-  var a:array[1..n,1..n]of integer;i,j:integer;
+  var a:array[1..3,1..3]of integer;i,j:integer;
   begin
-   for i:=1 to n do
+   for i:=1 to 3 do
    begin
-    for j:=1 to n do
+    for j:=1 to 3 do
      read(a[i,j]);
    end;
-  for i:=1 to n do
+  for i:=1 to 3 do
   begin
-   for j:=1 to n do
-    write(a[j,i]);
-       write(" ");
+   for j:=1 to 3 do
+        begin
+            write(a[j,i]);
+            write(" ");
+            end
   end;
     write("\n");
   end.

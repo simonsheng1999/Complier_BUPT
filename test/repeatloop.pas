@@ -1,7 +1,7 @@
 program repeatloop.pas;
    var
-    m,n,a,b,r : integer;
-  begin
+      m,n,a,b,r : integer;
+   begin
    write("Input m,n=");
    read(m,n);
    a:=m;b:=n;
