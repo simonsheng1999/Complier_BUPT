@@ -1,6 +1,6 @@
 program forloop;
    var
-　　　　n,i : integer；//｛i为循环变量｝
+　　　　n,i : integer ;//｛i为循环变量｝
 　　　　S : longint;//｛s作为累乘器｝
 　　begin
 　　　write("Enter n = ");read(n);//{输入n}
