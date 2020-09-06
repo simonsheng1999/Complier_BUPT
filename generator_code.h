@@ -183,6 +183,7 @@ int numofe = 0;
 vector<T_item> * tempTable;
 
 int startindex = 0;
+
 int endindex = 0;
 
 #endif //GENERATER_GENERATER_H

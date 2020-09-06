@@ -570,13 +570,13 @@ void generator_statement(ATRNode * node) {
             output_stream << ") " << endl;
             output_stream.close();
             if (node->children[3].children[0].attr != "compound_statement") {
+                space(N);
+                output_stream.open(fname, ios::app | ios::in | ios::out);
+                output_stream << "{" << endl;
+                N++;
+                output_stream.close();
+                generator_statement(&node->children[3]);
                 if (type == 1 && numofe == 1) {
-                    space(N);
-                    output_stream.open(fname, ios::app | ios::in | ios::out);
-                    output_stream << "{" << endl;
-                    N++;
-                    output_stream.close();
-                    generator_statement(&node->children[7]);
                     space(N);
                     output_stream.open(fname, ios::app | ios::in | ios::out);
                     output_stream << "return ";
@@ -586,16 +586,12 @@ void generator_statement(ATRNode * node) {
                     output_stream << ";" << endl;
                     numofe--;
                     output_stream.close();
-                    N--;
-                    output_stream.open(fname, ios::app | ios::in | ios::out);
-                    output_stream << "}" << endl;
-                    output_stream.close();
                 }
-                else {
-                    N++;
-                    generator_statement(&node->children[3]);
-                    N--;
-                }
+                N--;
+                space(N);
+                output_stream.open(fname, ios::app | ios::in | ios::out);
+                output_stream << "}" << endl;
+                output_stream.close();
             }
             else {
                 generator_statement(&node->children[3]);
@@ -627,13 +623,13 @@ void generator_statement(ATRNode * node) {
                 output_stream.close();
             }
             if (node->children[7].children[0].attr != "compound_statement") {
+                space(N);
+                output_stream.open(fname, ios::app | ios::in | ios::out);
+                output_stream << "{" << endl;
+                N++;
+                output_stream.close();
+                generator_statement(&node->children[7]);
                 if (type == 1 && numofe == 1) {
-                    space(N);
-                    output_stream.open(fname, ios::app | ios::in | ios::out);
-                    output_stream << "{" << endl;
-                    N++;
-                    output_stream.close();
-                    generator_statement(&node->children[7]);
                     space(N);
                     output_stream.open(fname, ios::app | ios::in | ios::out);
                     output_stream << "return ";
@@ -643,16 +639,12 @@ void generator_statement(ATRNode * node) {
                     output_stream << ";" << endl;
                     numofe--;
                     output_stream.close();
-                    N--;
-                    output_stream.open(fname, ios::app | ios::in | ios::out);
-                    output_stream << "}" << endl;
-                    output_stream.close();
                 }
-                else {
-                    N++;
-                    generator_statement(&node->children[7]);
-                    N--;
-                }
+                N--;
+                space(N);
+                output_stream.open(fname, ios::app | ios::in | ios::out);
+                output_stream << "}" << endl;
+                output_stream.close();
             }
             else {
                 generator_statement(&node->children[7]);
@@ -668,13 +660,13 @@ void generator_statement(ATRNode * node) {
             output_stream << ") " << endl;
             output_stream.close();
             if (node->children[3].children[0].attr != "compound_statement") {
+                space(N);
+                output_stream.open(fname, ios::app | ios::in | ios::out);
+                output_stream << "{" << endl;
+                N++;
+                output_stream.close();
+                generator_statement(&node->children[3]);
                 if (type == 1 && numofe == 1) {
-                    space(N);
-                    output_stream.open(fname, ios::app | ios::in | ios::out);
-                    output_stream << "{" << endl;
-                    N++;
-                    output_stream.close();
-                    generator_statement(&node->children[7]);
                     space(N);
                     output_stream.open(fname, ios::app | ios::in | ios::out);
                     output_stream << "return ";
@@ -684,16 +676,12 @@ void generator_statement(ATRNode * node) {
                     output_stream << ";" << endl;
                     numofe--;
                     output_stream.close();
-                    N--;
-                    output_stream.open(fname, ios::app | ios::in | ios::out);
-                    output_stream << "}" << endl;
-                    output_stream.close();
                 }
-                else {
-                    N++;
-                    generator_statement(&node->children[3]);
-                    N--;
-                }
+                N--;
+                space(N);
+                output_stream.open(fname, ios::app | ios::in | ios::out);
+                output_stream << "}" << endl;
+                output_stream.close();
             }
             else {
                 generator_statement(&node->children[3]);
@@ -931,13 +919,13 @@ void generator_else_part(ATRNode * node){
             output_stream << "else" << endl;
             output_stream.close();
             if (node->children[1].children[0].attr != "compound_statement") {
+                space(N);
+                output_stream.open(fname, ios::app | ios::in | ios::out);
+                output_stream << "{" << endl;
+                N++;
+                output_stream.close();
+                generator_statement(&node->children[1]);
                 if (type == 1 && numofe == 1) {
-                    space(N);
-                    output_stream.open(fname, ios::app | ios::in | ios::out);
-                    output_stream << "{" << endl;
-                    N++;
-                    output_stream.close();
-                    generator_statement(&node->children[7]);
                     space(N);
                     output_stream.open(fname, ios::app | ios::in | ios::out);
                     output_stream << "return ";
@@ -947,16 +935,12 @@ void generator_else_part(ATRNode * node){
                     output_stream << ";" << endl;
                     numofe--;
                     output_stream.close();
-                    N--;
-                    output_stream.open(fname, ios::app | ios::in | ios::out);
-                    output_stream << "}" << endl;
-                    output_stream.close();
                 }
-                else {
-                    N++;
-                    generator_statement(&node->children[1]);
-                    N--;
-                }
+                N--;
+                space(N);
+                output_stream.open(fname, ios::app | ios::in | ios::out);
+                output_stream << "}" << endl;
+                output_stream.close();
             }
             else {
                 generator_statement(&node->children[1]);
