@@ -9,7 +9,9 @@ int main() {
     scanf("%d", &n);
     s = 1;
     for (i = 2; i <= n; i++) 
+    {
         s = s * i;
+    }
     printf("%d", n);
     printf(" != ");
     printf("%d", s);
