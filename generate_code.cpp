@@ -548,6 +548,7 @@ void generator_statement(ATRNode * node) {
             output_stream.close();
         }
         else if (node->children[0].id == -1 && node->children[0].attr == "compound_statement") {
+            space(N);
             output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << "{" << endl;
             N++;
@@ -566,74 +567,96 @@ void generator_statement(ATRNode * node) {
             output_stream.close();
             generator_expression(&node->children[1]);
             output_stream.open(fname, ios::app|ios::in|ios::out);
-            output_stream << ") ";
-            output_stream << "{" << endl;
-            N++;
+            output_stream << ") " << endl;
             output_stream.close();
-            generator_statement(&node->children[3]);
-            if (type == 1 && numofe == 1) {
-                space(N);
-                output_stream.open(fname, ios::app|ios::in|ios::out);
-                output_stream << "return ";
-                output_stream.close();
-                generator_expression(e);
-                output_stream.open(fname, ios::app|ios::in|ios::out);
-                output_stream << ";" << endl;
-                numofe--;
-                output_stream.close();
+            if (node->children[3].children[0].attr != "compound_statement") {
+                if (type == 1 && numofe == 1) {
+                    space(N);
+                    output_stream.open(fname, ios::app | ios::in | ios::out);
+                    output_stream << "{" << endl;
+                    N++;
+                    output_stream.close();
+                    generator_statement(&node->children[7]);
+                    space(N);
+                    output_stream.open(fname, ios::app | ios::in | ios::out);
+                    output_stream << "return ";
+                    output_stream.close();
+                    generator_expression(e);
+                    output_stream.open(fname, ios::app | ios::in | ios::out);
+                    output_stream << ";" << endl;
+                    numofe--;
+                    output_stream.close();
+                    N--;
+                    output_stream.open(fname, ios::app | ios::in | ios::out);
+                    output_stream << "}" << endl;
+                    output_stream.close();
+                }
+                else {
+                    N++;
+                    generator_statement(&node->children[3]);
+                    N--;
+                }
             }
-            output_stream.open(fname, ios::app|ios::in|ios::out);
-            N--;
-            space(N);
-            output_stream << "}" << endl;
-            output_stream.close();
+            else {
+                generator_statement(&node->children[3]);
+            }
             generator_else_part(&node->children[4]);
         }
         else if (node->children[0].id == FOR) {
             space(N);
-            output_stream.open(fname, ios::app|ios::in|ios::out);
+            output_stream.open(fname, ios::app | ios::in | ios::out);
             output_stream << "for (" << node->children[1].attr << " = ";
             output_stream.close();
             generator_expression(&node->children[3]);
-            if(node->children[4].id == DOWNTO) {
-                output_stream.open(fname, ios::app|ios::in|ios::out);
+            if (node->children[4].id == DOWNTO) {
+                output_stream.open(fname, ios::app | ios::in | ios::out);
                 output_stream << "; " << node->children[1].attr << " >= ";
                 output_stream.close();
                 generator_expression(&node->children[5]);
-                output_stream.open(fname, ios::app|ios::in|ios::out);
-                output_stream << "; " << node->children[1].attr << "--" << ") ";
-                output_stream << "{" << endl;
-                N++;
+                output_stream.open(fname, ios::app | ios::in | ios::out);
+                output_stream << "; " << node->children[1].attr << "--" << ") " << endl;
                 output_stream.close();
             }
             else {
-                output_stream.open(fname, ios::app|ios::in|ios::out);
+                output_stream.open(fname, ios::app | ios::in | ios::out);
                 output_stream << "; " << node->children[1].attr << " <= ";
                 output_stream.close();
                 generator_expression(&node->children[5]);
-                output_stream.open(fname, ios::app|ios::in|ios::out);
-                output_stream << "; " << node->children[1].attr << "++" << ") ";
-                output_stream << "{" << endl;
-                N++;
+                output_stream.open(fname, ios::app | ios::in | ios::out);
+                output_stream << "; " << node->children[1].attr << "++" << ") " << endl;
                 output_stream.close();
             }
-            generator_statement(&node->children[7]);
-            if (type == 1 && numofe == 1) {
-                space(N);
-                output_stream.open(fname, ios::app|ios::in|ios::out);
-                output_stream << "return ";
-                output_stream.close();
-                generator_expression(e);
-                output_stream.open(fname, ios::app|ios::in|ios::out);
-                output_stream << ";" << endl;
-                numofe--;
-                output_stream.close();
+            if (node->children[7].children[0].attr != "compound_statement") {
+                if (type == 1 && numofe == 1) {
+                    space(N);
+                    output_stream.open(fname, ios::app | ios::in | ios::out);
+                    output_stream << "{" << endl;
+                    N++;
+                    output_stream.close();
+                    generator_statement(&node->children[7]);
+                    space(N);
+                    output_stream.open(fname, ios::app | ios::in | ios::out);
+                    output_stream << "return ";
+                    output_stream.close();
+                    generator_expression(e);
+                    output_stream.open(fname, ios::app | ios::in | ios::out);
+                    output_stream << ";" << endl;
+                    numofe--;
+                    output_stream.close();
+                    N--;
+                    output_stream.open(fname, ios::app | ios::in | ios::out);
+                    output_stream << "}" << endl;
+                    output_stream.close();
+                }
+                else {
+                    N++;
+                    generator_statement(&node->children[7]);
+                    N--;
+                }
             }
-            N--;
-            space(N);
-            output_stream.open(fname, ios::app|ios::in|ios::out);
-            output_stream << "}" << endl;
-            output_stream.close();
+            else {
+                generator_statement(&node->children[7]);
+            }
         }
         else if (node->children[0].id == WHILE) {
             space(N);
@@ -642,27 +665,39 @@ void generator_statement(ATRNode * node) {
             output_stream.close();
             generator_expression(&node->children[1]);
             output_stream.open(fname, ios::app|ios::in|ios::out);
-            output_stream << ") ";
-            output_stream << "{" << endl;
-            N++;
+            output_stream << ") " << endl;
             output_stream.close();
-            generator_statement(&node->children[3]);
-            if (type == 1 && numofe == 1) {
-                space(N);
-                output_stream.open(fname, ios::app|ios::in|ios::out);
-                output_stream << "return ";
-                output_stream.close();
-                generator_expression(e);
-                output_stream.open(fname, ios::app|ios::in|ios::out);
-                output_stream << ";" << endl;
-                numofe--;
-                output_stream.close();
+            if (node->children[3].children[0].attr != "compound_statement") {
+                if (type == 1 && numofe == 1) {
+                    space(N);
+                    output_stream.open(fname, ios::app | ios::in | ios::out);
+                    output_stream << "{" << endl;
+                    N++;
+                    output_stream.close();
+                    generator_statement(&node->children[7]);
+                    space(N);
+                    output_stream.open(fname, ios::app | ios::in | ios::out);
+                    output_stream << "return ";
+                    output_stream.close();
+                    generator_expression(e);
+                    output_stream.open(fname, ios::app | ios::in | ios::out);
+                    output_stream << ";" << endl;
+                    numofe--;
+                    output_stream.close();
+                    N--;
+                    output_stream.open(fname, ios::app | ios::in | ios::out);
+                    output_stream << "}" << endl;
+                    output_stream.close();
+                }
+                else {
+                    N++;
+                    generator_statement(&node->children[3]);
+                    N--;
+                }
             }
-            N--;
-            space(N);
-            output_stream.open(fname, ios::app|ios::in|ios::out);
-            output_stream << "}" << endl;
-            output_stream.close();
+            else {
+                generator_statement(&node->children[3]);
+            }
         }
         else if (node->children[0].id == READ) {
             space(N);
@@ -777,6 +812,9 @@ void generator_variable(ATRNode * node){
         if (id.dimension != 0) {
             tempTable = curTable;
             curTable = id.p;
+            startindex = (*curTable)[0].type;
+            endindex = (*curTable)[0].dimension;
+            curTable = tempTable;
         }
         output_stream.open(fname, ios::app|ios::in|ios::out);
         if(id.is_ref) output_stream << "*";
@@ -796,6 +834,9 @@ void generator_variable_read(ATRNode * node){
         if (id.dimension != 0) {
             tempTable = curTable;
             curTable = id.p;
+            startindex = (*curTable)[0].type;
+            endindex = (*curTable)[0].dimension;
+            curTable = tempTable;
         }
         output_stream.open(fname, ios::app|ios::in|ios::out);
         output_stream << id.name;
@@ -819,16 +860,14 @@ void generator_id_varpart(ATRNode * node){
             output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << "[";
             output_stream.close();
-            int b = (*curTable)[i].type;
             generator_expression(&exlist[i]);
             output_stream.open(fname, ios::app|ios::in|ios::out);
-            if(b != 0) {
-                output_stream << " - " << b;
+            if(startindex != 0) {
+                output_stream << " - " << startindex;
             }
             output_stream << "]";
             output_stream.close();
         }
-        curTable = tempTable;
     }
     else if (node->children.empty()){
         // debug
@@ -889,26 +928,39 @@ void generator_else_part(ATRNode * node){
         if (node->children[0].id == ELSE){
             output_stream.open(fname, ios::app|ios::in|ios::out);
             space(N);
-            output_stream << "else {" << endl;
+            output_stream << "else" << endl;
             output_stream.close();
-            N++;
-            generator_statement(&node->children[1]);
-            if (type == 1 && numofe == 1) {
-                space(N);
-                output_stream.open(fname, ios::app|ios::in|ios::out);
-                output_stream << "return ";
-                output_stream.close();
-                generator_expression(e);
-                output_stream.open(fname, ios::app|ios::in|ios::out);
-                output_stream << ";" << endl;
-                numofe--;
-                output_stream.close();
+            if (node->children[1].children[0].attr != "compound_statement") {
+                if (type == 1 && numofe == 1) {
+                    space(N);
+                    output_stream.open(fname, ios::app | ios::in | ios::out);
+                    output_stream << "{" << endl;
+                    N++;
+                    output_stream.close();
+                    generator_statement(&node->children[7]);
+                    space(N);
+                    output_stream.open(fname, ios::app | ios::in | ios::out);
+                    output_stream << "return ";
+                    output_stream.close();
+                    generator_expression(e);
+                    output_stream.open(fname, ios::app | ios::in | ios::out);
+                    output_stream << ";" << endl;
+                    numofe--;
+                    output_stream.close();
+                    N--;
+                    output_stream.open(fname, ios::app | ios::in | ios::out);
+                    output_stream << "}" << endl;
+                    output_stream.close();
+                }
+                else {
+                    N++;
+                    generator_statement(&node->children[1]);
+                    N--;
+                }
             }
-            output_stream.open(fname, ios::app|ios::in|ios::out);
-            N--;
-            space(N);
-            output_stream << "}" << endl;
-            output_stream.close();
+            else {
+                generator_statement(&node->children[1]);
+            }
         }
     }
     else if (node->children.empty()){
@@ -1127,6 +1179,7 @@ void generator_mulop(ATRNode * node){
     else if (node->children[0].attr == "mod"){
         output_stream << "%";
     }
+    else output_stream << "&&";
     output_stream.close();
 }
 
