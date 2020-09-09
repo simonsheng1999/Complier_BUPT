@@ -6,6 +6,7 @@
 vector<T_item> SymbolTable;
 vector<T_item> * curTable = &SymbolTable;
 vector<vector<T_item>> temp_tables;
+ofstream sem_fout;
 
 
 // 错误处理函数
@@ -142,6 +143,8 @@ string is_ref_var(bool is_ref)
 void exit_error()
 {
     cout << "semantic failed..." << endl;
+    sem_fout << "semantic failed..." << endl;
+    sem_fout.close();
     exit(100);
 }
 
@@ -296,10 +299,12 @@ void insert_symbol_table(const T_item & item)
         (*curTable).push_back(item);
     } else{
         // 重复定义错误
-        cout << "Line " << item.line <<"\tredifinition：" << item.name <<endl;
+        cout << "Line " << item.line <<"\tRedifinition：" << item.name <<endl;
+        sem_fout << "Line " << item.line <<"\tRedifinition：" << item.name <<endl;
         exit_error();
     }
 }
+
 
 // programstruct -> program_head  ；program_body .
 void generate_1(const ATRNode & node)
@@ -612,6 +617,7 @@ TYPE_info generate_21(const ATRNode & node)
     else{
         TYPE_info type_info(NONE, 0, nullptr);
         cout << "Line " << type.line << "\tbasic_type is illegal" <<endl;
+        sem_fout << "Line " << type.line << "\tbasic_type is illegal" <<endl;
         exit_error();
         return type_info;
     }
@@ -633,6 +639,7 @@ void generate_25(const ATRNode & node, TYPE_info & type_info)
     if(start_index >= end_index)
     {
         cout << "Line " << node.children[2].line << "\tinvalid range of array" <<endl;
+        sem_fout << "Line " << node.children[2].line << "\tinvalid range of array" <<endl;
         exit_error();
     }
     T_item item("", start_index, end_index, 0, nullptr);
@@ -648,6 +655,7 @@ void generate_26(const ATRNode & node, TYPE_info & type_info)
     if(start_index >= end_index)
     {
         cout << "Line " << node.children[2].line << "\tinvalid range of array" <<endl;
+        sem_fout << "Line " << node.children[2].line << "\tinvalid range of array" <<endl;
         exit_error();
     }
     T_item item("", start_index, end_index, 0, nullptr);
@@ -970,6 +978,8 @@ void generate_44(const ATRNode & node)
     {
         cout << "Line " << node.children[0].children[0].line << "\tAssignment Statement types do not match: "
         << show_type(type1) << " and " << show_type(type2) << endl;
+        sem_fout << "Line " << node.children[0].children[0].line << "\tAssignment Statement types do not match: "
+             << show_type(type1) << " and " << show_type(type2) << endl;
         exit_error();
     }
 }
@@ -1008,6 +1018,7 @@ void generate_47(const ATRNode & node)
     if(type != BOOLEAN)
     {
         cout << "Line " << node.children[0].line << "\tAfter if must be boolean: " << endl;
+        sem_fout << "Line " << node.children[0].line << "\tAfter if must be boolean: " << endl;
         exit_error();
     }
     else
@@ -1100,6 +1111,7 @@ void generate_48(const ATRNode & node)
     if(item1.name == "false")
     {
         cout << "Line " << id.line << "\tundifined reference: " << id.attr << endl;
+        sem_fout << "Line " << id.line << "\tundifined reference: " << id.attr << endl;
         exit_error();
     }
     else
@@ -1124,7 +1136,8 @@ void generate_48(const ATRNode & node)
         }
         if(item1.type != item2.type or item1.type != item3.type)
         {
-            cout << "Line " << node.children[1].line << "\terror type for loop variable: "<< item1.name << endl;
+            cout << "Line " << node.children[1].line << "\terror type for for_loop variable: "<< item1.name << endl;
+            sem_fout << "Line " << node.children[1].line << "\terror type for for_loop variable: "<< item1.name << endl;
             exit_error();
         }
         else
@@ -1185,6 +1198,7 @@ void generate_49(const ATRNode & node)
     if(item.type != BOOLEAN)
     {
         cout << "Line " << node.children[0].line << "\tAfter while must be boolean: " << endl;
+        sem_fout << "Line " << node.children[0].line << "\tAfter while must be boolean: " << endl;
         exit_error();
     }
     else
@@ -1289,6 +1303,7 @@ int generate_55(const ATRNode & node)
     if(item.name == "false")
     {
         cout << "Line " << id.line << "\tundefined reference: " << id.attr << endl;
+        sem_fout << "Line " << id.line << "\tundefined reference: " << id.attr << endl;
         exit_error();
     }
     else{
@@ -1297,12 +1312,14 @@ int generate_55(const ATRNode & node)
             if(item.dimension!=0)
             {
                 cout << "Line " << id.line << "\tIllegal number of parameters for array: " << id.attr << endl;
+                sem_fout << "Line " << id.line << "\tIllegal number of parameters for array: " << id.attr << endl;
                 exit_error();
             }
         }
         else if(item.dimension==0)
         {
             cout << "Line " << id.line << "\tNot array: " << item.name  << endl;
+            sem_fout << "Line " << id.line << "\tNot array: " << item.name  << endl;
             exit_error();
         }
         else
@@ -1312,6 +1329,7 @@ int generate_55(const ATRNode & node)
             if(param_list.size() != index_list.size())
             {
                 cout << "Line " << id.line << "\tIllegal number of parameters for array: " << item.name << endl;
+                sem_fout << "Line " << id.line << "\tIllegal number of parameters for array: " << item.name << endl;
                 exit_error();
             }
             else
@@ -1321,6 +1339,7 @@ int generate_55(const ATRNode & node)
                     if(i.type != INTEGER)
                     {
                         cout << "Line " << id.line << "\tIllegal type index for array: " << item.name << endl;
+                        sem_fout << "Line " << id.line << "\tIllegal type index for array: " << item.name << endl;
                         exit_error();
                     }
                     // 数组范围检查
@@ -1354,6 +1373,7 @@ void generate_58(const ATRNode & node)
     if(item.name == "false")
     {
         cout << "Line " << id.line << "\tundefined procedure call: " << id.attr << endl;
+        sem_fout << "Line " << id.line << "\tundefined procedure call: " << id.attr << endl;
         exit_error();
     }
 }
@@ -1365,7 +1385,8 @@ void generate_59(const ATRNode & node)
     T_item item = search_table(id.attr, PROCEDURE);
     if(item.name == "false")
     {
-        cout << "Line " << id.line << "\tundefined function call: " << id.attr << endl;
+        cout << "Line " << id.line << "\tundefined procedure call: " << id.attr << endl;
+        sem_fout << "Line " << id.line << "\tundefined procedure call: " << id.attr << endl;
         exit_error();
     }
     else
@@ -1383,6 +1404,7 @@ void generate_59(const ATRNode & node)
         if(param_list.size() != item.dimension)
         {
             cout << "Line " << id.line << "\tWrong number of parameters for procedure: " << item.name  << endl;
+            sem_fout << "Line " << id.line << "\tWrong number of parameters for procedure: " << item.name  << endl;
             exit_error();
         }
         else{
@@ -1391,6 +1413,7 @@ void generate_59(const ATRNode & node)
                 if(param_list[i].type != param_table[i+1].type)
                 {
                     cout << "Line " << id.line << "\t" << item.name << "\tWrong type parameter: " << i+1 << endl;
+                    sem_fout << "Line " << id.line << "\t" << item.name << "\tWrong type parameter: " << i+1 << endl;
                     exit_error();
                 }
             }
@@ -1464,6 +1487,8 @@ T_item generate_64(const ATRNode & node)
     {
         cout << "Line " << node.children[1].children[0].line << "\twrong type for relop: "
         << node.children[1].children[0].attr << endl;
+        sem_fout << "Line " << node.children[1].children[0].line << "\twrong type for relop: "
+             << node.children[1].children[0].attr << endl;
         exit_error();
         T_item item("", NONE, 0, 0, nullptr);
         return item;
@@ -1519,6 +1544,7 @@ T_item generate_66(const ATRNode & node)
     else
     {
         cout << "Line " << add_op.line << "\twrong type for: " << add_op.attr << endl;
+        sem_fout << "Line " << add_op.line << "\twrong type for: " << add_op.attr << endl;
         exit_error();
         T_item item("", NONE, 0, 0, nullptr);
         return item;
@@ -1591,6 +1617,7 @@ T_item generate_68(const ATRNode & node)
         else
         {
             cout << "Line " << mul_op.line << "\tonly for integer" << endl;
+            sem_fout << "Line " << mul_op.line << "\tonly for integer" << endl;
             exit_error();
             type = NONE;
         }
@@ -1602,6 +1629,7 @@ T_item generate_68(const ATRNode & node)
     else
     {
         cout << "Line " << mul_op.line << "\twrong type for mulop" << mul_op.attr << endl;
+        sem_fout << "Line " << mul_op.line << "\twrong type for mulop" << mul_op.attr << endl;
         exit_error();
         type = NONE;
     }
@@ -1672,7 +1700,8 @@ int generate_72(const ATRNode & node)
     T_item item = search_table(id.attr, FUNCTION);
     if(item.name == "false")
     {
-        cout << "Line " << id.line << "\tundefined reference: " << id.attr << endl;
+        cout << "Line " << id.line << "\tundefined function call: " << id.attr << endl;
+        sem_fout << "Line " << id.line << "\tundefined function call: " << id.attr << endl;
         exit_error();
     }
     else
@@ -1690,6 +1719,7 @@ int generate_72(const ATRNode & node)
         if(param_list.size() != item.dimension)
         {
             cout << "Line " << id.line << "\tWrong number of parameters for function: " << item.name  << endl;
+            sem_fout << "Line " << id.line << "\tWrong number of parameters for function: " << item.name  << endl;
             exit_error();
         }
         else{
@@ -1698,6 +1728,7 @@ int generate_72(const ATRNode & node)
                 if(param_list[i].type != param_table[i+1].type)
                 {
                     cout << "Line " << id.line << "\t" << item.name << "\tWrong type parameter: " << i+1 << endl;
+                    sem_fout << "Line " << id.line << "\t" << item.name << "\tWrong type parameter: " << i+1 << endl;
                     exit_error();
                 }
             }
@@ -1788,5 +1819,7 @@ int generate_75(const ATRNode & node)
 void semantic(const ATRNode & node)
 {
     init_temp_tables();
+    sem_fout.open("err.txt");
     generate_1(node);
+    sem_fout.close();
 }
