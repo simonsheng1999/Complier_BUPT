@@ -299,8 +299,8 @@ void insert_symbol_table(const T_item & item)
         (*curTable).push_back(item);
     } else{
         // 重复定义错误
-        cout << "Line " << item.line <<"\tRedifinition：" << item.name <<endl;
-        sem_fout << "Line " << item.line <<"\tRedifinition：" << item.name <<endl;
+        cout << "Line " << item.line <<"\tRedifinition: " << item.name <<endl;
+        sem_fout << "Line " << item.line <<"\tRedifinition: " << item.name <<endl;
         exit_error();
     }
 }
@@ -1628,8 +1628,8 @@ T_item generate_68(const ATRNode & node)
     }
     else
     {
-        cout << "Line " << mul_op.line << "\twrong type for mulop" << mul_op.attr << endl;
-        sem_fout << "Line " << mul_op.line << "\twrong type for mulop" << mul_op.attr << endl;
+        cout << "Line " << mul_op.line << "\twrong type for mulop: " << mul_op.attr << endl;
+        sem_fout << "Line " << mul_op.line << "\twrong type for mulop: " << mul_op.attr << endl;
         exit_error();
         type = NONE;
     }
