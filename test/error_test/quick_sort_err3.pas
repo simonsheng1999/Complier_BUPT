@@ -42,8 +42,8 @@ program quicksort;
             quicksort(1, n);
             for i := 1 to n do
             begin
-                write(a[i])
-                write(" ")
+                write(a[i]);
+                write(" ");
             end
        end
     end.
