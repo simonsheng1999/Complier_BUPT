@@ -48,6 +48,7 @@ int main() {
         for (i = 1; i <= n; i++) 
         {
             printf("%d", a[i - 1]);
+            printf(" ");
         }
     }
     return 0;

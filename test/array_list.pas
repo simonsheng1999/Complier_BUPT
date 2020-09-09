@@ -5,6 +5,8 @@ program array_list;
     write("Enter 10 integer:");
     for i:=1 to 10 do read(a[i]) ;//{从键盘上输入10个整数}
     for i:=10 downto 1 do //{逆序输出这10个数}
+       begin
       write(a[i]);
        write(" ");
+       end
    end.

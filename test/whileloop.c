@@ -1,8 +1,6 @@
 #include <stdio.h>
 
-
 int m, n, a, b, r;
-
 
 int main() {
     printf("Input m,n:");

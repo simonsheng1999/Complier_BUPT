@@ -43,6 +43,8 @@ begin
         initialize(n);
         quicksort(1, n);
         for i := 1 to n do
-            write(a[i])
+            begin
+                write(a[i])
+                write(" ")
    end
 end.

@@ -7,7 +7,7 @@ program forloop;
   s:=1;
    for i:=2 to n do//｛从2到n累乘到s中｝
     s:=s*i;
-   write(n);//{输出n!的值｝
+     write(n);//{输出n!的值｝
      write(" != ");
      write(s);
   end.
