@@ -551,9 +551,10 @@ char *yytext;
 // 这两个变量在lex提供的库中被定义，因此我们如果想要使用，必须添加extern声明
 
 int line = 1;
+ATRNode last_word;
 
 
-#line 557 "lex.yy.c"
+#line 558 "lex.yy.c"
 
 #define INITIAL 0
 #define COMMENT 1
@@ -772,10 +773,10 @@ YY_DECL
 		}
 
 	{
-#line 46 "lex.l"
+#line 47 "lex.l"
 
 
-#line 779 "lex.yy.c"
+#line 780 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -835,425 +836,426 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 48 "lex.l"
+#line 49 "lex.l"
 {line++;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 50 "lex.l"
-{yylval = newNode(AND, yytext, line); 
+#line 51 "lex.l"
+{yylval = newNode(AND, yytext, line); last_word = yylval; 
                               return(AND);
                               }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 53 "lex.l"
-{yylval = newNode(ARRAY, yytext, line); 
+#line 54 "lex.l"
+{yylval = newNode(ARRAY, yytext, line); last_word = yylval; 
                               return(ARRAY);
                               }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 56 "lex.l"
-{yylval = newNode(CONST, yytext, line); 
+#line 57 "lex.l"
+{yylval = newNode(CONST, yytext, line); last_word = yylval; 
                               return(CONST);
                               }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 59 "lex.l"
-{yylval = newNode(DIV, yytext, line); 
+#line 60 "lex.l"
+{yylval = newNode(DIV, yytext, line); last_word = yylval; 
                               return(DIV);
                               }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 62 "lex.l"
-{yylval = newNode(DO, yytext, line); 
+#line 63 "lex.l"
+{yylval = newNode(DO, yytext, line); last_word = yylval; 
                               return(DO);
                               }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 65 "lex.l"
-{yylval = newNode(DOWNTO, yytext, line); 
+#line 66 "lex.l"
+{yylval = newNode(DOWNTO, yytext, line); last_word = yylval; 
                               return(DOWNTO);
                               }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 68 "lex.l"
-{yylval = newNode(ELSE, yytext, line); 
+#line 69 "lex.l"
+{yylval = newNode(ELSE, yytext, line); last_word = yylval; 
                               return(ELSE);
                               }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 71 "lex.l"
-{yylval = newNode(END, yytext, line); 
+#line 72 "lex.l"
+{yylval = newNode(END, yytext, line); last_word = yylval; 
                               return(END);
                               }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 74 "lex.l"
-{yylval = newNode(FOR, yytext, line); 
+#line 75 "lex.l"
+{yylval = newNode(FOR, yytext, line); last_word = yylval; 
                               return(FOR);
                               }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 77 "lex.l"
-{yylval = newNode(FUNCTION, yytext, line); 
+#line 78 "lex.l"
+{yylval = newNode(FUNCTION, yytext, line); last_word = yylval; 
                               return(FUNCTION);
                               }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 80 "lex.l"
-{yylval = newNode(IF, yytext, line); 
+#line 81 "lex.l"
+{yylval = newNode(IF, yytext, line); last_word = yylval; 
                               return(IF);
                               }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 83 "lex.l"
-{yylval = newNode(MOD, yytext, line); 
+#line 84 "lex.l"
+{yylval = newNode(MOD, yytext, line); last_word = yylval; 
                               return(MOD);
                               }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 86 "lex.l"
-{yylval = newNode(NOT, yytext, line); 
+#line 87 "lex.l"
+{yylval = newNode(NOT, yytext, line); last_word = yylval; 
                               return(NOT);
                               }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 89 "lex.l"
-{yylval = newNode(OF, yytext, line); 
+#line 90 "lex.l"
+{yylval = newNode(OF, yytext, line); last_word = yylval; 
                               return(OF);
                               } 
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 92 "lex.l"
-{yylval = newNode(OR, yytext, line); 
+#line 93 "lex.l"
+{yylval = newNode(OR, yytext, line); last_word = yylval; 
                               return(OR);
                               }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 95 "lex.l"
-{yylval = newNode(PBEGIN, yytext, line); 
+#line 96 "lex.l"
+{yylval = newNode(PBEGIN, yytext, line); last_word = yylval; 
                               return(PBEGIN);
                               }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 98 "lex.l"
-{yylval = newNode(PROCEDURE, yytext, line); 
+#line 99 "lex.l"
+{yylval = newNode(PROCEDURE, yytext, line); last_word = yylval; 
                               return(PROCEDURE);
                               }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 101 "lex.l"
-{yylval = newNode(PROGRAM, yytext, line); 
+#line 102 "lex.l"
+{yylval = newNode(PROGRAM, yytext, line); last_word = yylval; 
                               return(PROGRAM);
                               }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 104 "lex.l"
-{yylval = newNode(THEN, yytext, line); 
+#line 105 "lex.l"
+{yylval = newNode(THEN, yytext, line); last_word = yylval; 
                               return(THEN);
                               }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 107 "lex.l"
-{yylval = newNode(TO, yytext, line); 
+#line 108 "lex.l"
+{yylval = newNode(TO, yytext, line); last_word = yylval; 
                               return(TO);
                               }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 110 "lex.l"
-{yylval = newNode(VAR, yytext, line); 
+#line 111 "lex.l"
+{yylval = newNode(VAR, yytext, line); last_word = yylval; 
                               return(VAR);
                               }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 113 "lex.l"
-{yylval = newNode(WHILE, yytext, line); 
+#line 114 "lex.l"
+{yylval = newNode(WHILE, yytext, line); last_word = yylval; 
                               return(WHILE);
                               }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 116 "lex.l"
-{yylval = newNode(READ, yytext, line); 
+#line 117 "lex.l"
+{yylval = newNode(READ, yytext, line); last_word = yylval; 
                               return(READ);
                               }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 119 "lex.l"
-{yylval = newNode(WRITE, yytext, line); 
+#line 120 "lex.l"
+{yylval = newNode(WRITE, yytext, line); last_word = yylval; 
                               return(WRITE);
                               }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 122 "lex.l"
-{yylval = newNode(INTEGER, yytext, line); 
+#line 123 "lex.l"
+{yylval = newNode(INTEGER, yytext, line); last_word = yylval; 
                               return(INTEGER);
                               }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 125 "lex.l"
-{yylval = newNode(REAL, yytext, line); 
+#line 126 "lex.l"
+{yylval = newNode(REAL, yytext, line); last_word = yylval; 
                               return(REAL);
                               }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 128 "lex.l"
-{yylval = newNode(CHAR, yytext, line); 
+#line 129 "lex.l"
+{yylval = newNode(CHAR, yytext, line); last_word = yylval; 
                               return(CHAR);
                               }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 131 "lex.l"
-{yylval = newNode(BOOLEAN, yytext, line); 
+#line 132 "lex.l"
+{yylval = newNode(BOOLEAN, yytext, line); last_word = yylval; 
                               return(BOOLEAN);
                               }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 134 "lex.l"
-{yylval = newNode(LETTER, yytext, line); 
+#line 135 "lex.l"
+{yylval = newNode(LETTER, yytext, line); last_word = yylval; 
                               return(LETTER);
                               }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 137 "lex.l"
-{yylval = newNode(STRING, yytext, line); 
+#line 138 "lex.l"
+{yylval = newNode(STRING, yytext, line); last_word = yylval; 
                               return(STRING);
                             }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 140 "lex.l"
-{yylval = newNode(IDENTIFIER, yytext, line); 
+#line 141 "lex.l"
+{yylval = newNode(IDENTIFIER, yytext, line); last_word = yylval; 
                               return(IDENTIFIER);
                               }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 143 "lex.l"
-{yylval = newNode(ASSIGNOP, yytext, line); 
+#line 144 "lex.l"
+{yylval = newNode(ASSIGNOP, yytext, line); last_word = yylval; 
                               return(ASSIGNOP);
                               }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 146 "lex.l"
-{yylval = newNode(COLON, yytext, line); 
+#line 147 "lex.l"
+{yylval = newNode(COLON, yytext, line); last_word = yylval; 
                               return(COLON);
                               }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 149 "lex.l"
-{yylval = newNode(COMMA, yytext, line); 
+#line 150 "lex.l"
+{yylval = newNode(COMMA, yytext, line); last_word = yylval; 
                               return(COMMA);
                               }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 152 "lex.l"
-{yylval = newNode(DIGSEQ, yytext, line); 
+#line 153 "lex.l"
+{yylval = newNode(DIGSEQ, yytext, line); last_word = yylval; 
                               return(DIGSEQ);
                               }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 155 "lex.l"
-{yylval = newNode(DOT, yytext, line); 
+#line 156 "lex.l"
+{yylval = newNode(DOT, yytext, line); last_word = yylval; 
                               return(DOT);
                               }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 158 "lex.l"
-{yylval = newNode(DOTDOT, yytext, line); 
+#line 159 "lex.l"
+{yylval = newNode(DOTDOT, yytext, line); last_word = yylval; 
                               return(DOTDOT);
                               }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 161 "lex.l"
-{yylval = newNode(EQUAL, yytext, line); 
+#line 162 "lex.l"
+{yylval = newNode(EQUAL, yytext, line); last_word = yylval; 
                               return(EQUAL);
                               }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 164 "lex.l"
-{yylval = newNode(notEQUAL, yytext, line); 
+#line 165 "lex.l"
+{yylval = newNode(notEQUAL, yytext, line); last_word = yylval; 
                               return(notEQUAL);
                               }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 167 "lex.l"
-{yylval = newNode(GE, yytext, line); 
+#line 168 "lex.l"
+{yylval = newNode(GE, yytext, line); last_word = yylval; 
                               return(GE);
                               }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 170 "lex.l"
-{yylval = newNode(GT, yytext, line); 
+#line 171 "lex.l"
+{yylval = newNode(GT, yytext, line); last_word = yylval; 
                               return(GT);
                               }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 173 "lex.l"
-{yylval = newNode(LBRAC, yytext, line); 
+#line 174 "lex.l"
+{yylval = newNode(LBRAC, yytext, line); last_word = yylval; 
                               return(LBRAC);
                               }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 176 "lex.l"
-{yylval = newNode(LE, yytext, line); 
+#line 177 "lex.l"
+{yylval = newNode(LE, yytext, line); last_word = yylval; 
                               return(LE);
                               }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 179 "lex.l"
-{yylval = newNode(LPAREN, yytext, line); 
+#line 180 "lex.l"
+{yylval = newNode(LPAREN, yytext, line); last_word = yylval; 
                               return(LPAREN);
                               }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 182 "lex.l"
-{yylval = newNode(LT, yytext, line); 
+#line 183 "lex.l"
+{yylval = newNode(LT, yytext, line); last_word = yylval; 
                               return(LT);
                               }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 185 "lex.l"
-{yylval = newNode(MINUS, yytext, line); 
+#line 186 "lex.l"
+{yylval = newNode(MINUS, yytext, line); last_word = yylval; 
                               return(MINUS);
                               }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 188 "lex.l"
-{yylval = newNode(PLUS, yytext, line); 
+#line 189 "lex.l"
+{yylval = newNode(PLUS, yytext, line); last_word = yylval; 
                               return(PLUS);
                               }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 191 "lex.l"
-{yylval = newNode(RBRAC, yytext, line); 
+#line 192 "lex.l"
+{yylval = newNode(RBRAC, yytext, line); last_word = yylval; 
                               return(RBRAC);
                               }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 194 "lex.l"
-{yylval = newNode(REALNUMBER, yytext, line); 
+#line 195 "lex.l"
+{yylval = newNode(REALNUMBER, yytext, line); last_word = yylval; 
                               return(REALNUMBER);
                               }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 197 "lex.l"
-{yylval = newNode(RPAREN, yytext, line); 
+#line 198 "lex.l"
+{yylval = newNode(RPAREN, yytext, line); last_word = yylval; 
                               return(RPAREN);
                               }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 200 "lex.l"
-{yylval = newNode(SEMICOLON, yytext, line); 
+#line 201 "lex.l"
+{yylval = newNode(SEMICOLON, yytext, line); last_word = yylval; 
                               return(SEMICOLON);
                               }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 203 "lex.l"
-{yylval = newNode(SLASH, yytext, line); 
+#line 204 "lex.l"
+{yylval = newNode(SLASH, yytext, line); last_word = yylval; 
                               return(SLASH);
                               }
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 206 "lex.l"
-{yylval = newNode(STAR, yytext, line); 
+#line 207 "lex.l"
+{yylval = newNode(STAR, yytext, line); last_word = yylval; 
                               return(STAR);
                               }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 209 "lex.l"
+#line 210 "lex.l"
 ;
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 210 "lex.l"
+#line 211 "lex.l"
 ;
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 212 "lex.l"
+#line 213 "lex.l"
 {BEGIN COMMENT;	//用BEGIN宏切换到注释状态，去过滤这段注释，下一次lex将只匹配前面带有<COMMENT>的正则式
-				              }
+				                      }
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 214 "lex.l"
-
+#line 215 "lex.l"
 {
-    cout << "Error:invalid input at line " << line << endl;
-    exit(99);
+                              string error_desc = "Last detected token: " + last_word.attr;
+                              cout << "Lexial error: invalid input at line " << line << endl;
+                              cout << error_desc << endl;
+                              exit(80);
                               }
 	YY_BREAK
 case 59:
 /* rule 59 can match eol */
 YY_RULE_SETUP
-#line 216 "lex.l"
+#line 221 "lex.l"
 {line++;
                                BEGIN INITIAL;			//在注释状态下，当遇到换行符时，表明注释结束了，返回初始态
-				              }
+				                      }
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 219 "lex.l"
+#line 224 "lex.l"
 {							
                               }
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 222 "lex.l"
+#line 227 "lex.l"
 ECHO;
 	YY_BREAK
-#line 1254 "lex.yy.c"
+#line 1259 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(COMMENT):
 	yyterminate();
@@ -2255,7 +2257,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 222 "lex.l"
+#line 227 "lex.l"
 
 
 

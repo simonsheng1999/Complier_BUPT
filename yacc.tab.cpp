@@ -80,8 +80,9 @@ ATRNode p;
 ATRNode root_node;
 
 int layer=0;
+ATRNode last_generate_node;
 
-#line 85 "yacc.tab.c" /* yacc.c:339  */
+#line 86 "yacc.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -203,7 +204,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 207 "yacc.tab.c" /* yacc.c:358  */
+#line 208 "yacc.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -507,16 +508,16 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    36,    36,    50,    60,    71,    84,    92,   102,   111,
-     118,   128,   140,   148,   155,   161,   176,   183,   193,   202,
-     209,   219,   231,   237,   252,   258,   264,   270,   280,   290,
-     302,   311,   318,   330,   340,   352,   361,   368,   376,   386,
-     392,   402,   413,   425,   434,   441,   452,   460,   470,   478,
-     484,   490,   500,   513,   526,   535,   544,   553,   563,   570,
-     578,   588,   600,   609,   617,   623,   636,   644,   651,   659,
-     669,   677,   687,   693,   705,   713,   723,   729,   735,   744,
-     752,   759,   770,   776,   782,   788,   794,   800,   809,   815,
-     821,   831,   837,   843,   849,   855
+       0,    37,    37,    51,    61,    72,    85,    93,   103,   112,
+     119,   129,   141,   149,   156,   162,   177,   184,   194,   203,
+     210,   220,   232,   238,   253,   259,   265,   271,   281,   291,
+     303,   312,   319,   331,   341,   353,   362,   369,   377,   387,
+     393,   403,   414,   426,   435,   442,   453,   461,   471,   479,
+     485,   491,   501,   514,   527,   536,   545,   554,   564,   571,
+     579,   589,   601,   610,   618,   624,   637,   645,   652,   660,
+     670,   678,   688,   694,   706,   714,   724,   730,   736,   745,
+     753,   760,   771,   777,   783,   789,   795,   801,   810,   816,
+     822,   832,   838,   844,   850,   856
 };
 #endif
 
@@ -1420,7 +1421,7 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 37 "yacc.y" /* yacc.c:1646  */
+#line 38 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"Program",0);
 		p.children.push_back((yyvsp[-3]));
@@ -1428,13 +1429,13 @@ yyreduce:
 		p.children.push_back((yyvsp[-1]));
 		p.children.push_back((yyvsp[0]));
 		root_node=p;
-		(yyval)=p;
+		(yyval) = p; last_generate_node = p;
 	}
-#line 1434 "yacc.tab.c" /* yacc.c:1646  */
+#line 1435 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 51 "yacc.y" /* yacc.c:1646  */
+#line 52 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"program_head",0);
 		p.children.push_back((yyvsp[-4]));
@@ -1442,79 +1443,79 @@ yyreduce:
 		p.children.push_back((yyvsp[-2]));
 		p.children.push_back((yyvsp[-1]));
 		p.children.push_back((yyvsp[0]));
-		(yyval) = p;
+		(yyval) = p; last_generate_node = p;
 	}
-#line 1448 "yacc.tab.c" /* yacc.c:1646  */
+#line 1449 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 61 "yacc.y" /* yacc.c:1646  */
+#line 62 "yacc.y" /* yacc.c:1646  */
     {
         p=newNode(-1,"program_head",0);
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1459 "yacc.tab.c" /* yacc.c:1646  */
+#line 1460 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 72 "yacc.y" /* yacc.c:1646  */
+#line 73 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"program_body",0);
 		p.children.push_back((yyvsp[-3]));
 		p.children.push_back((yyvsp[-2]));
 		p.children.push_back((yyvsp[-1]));
 		p.children.push_back((yyvsp[0]));
-		(yyval) = p;
+		(yyval) = p; last_generate_node = p;
 	}
-#line 1472 "yacc.tab.c" /* yacc.c:1646  */
+#line 1473 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 85 "yacc.y" /* yacc.c:1646  */
+#line 86 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"identifier_list",0);
 		p.children.push_back((yyvsp[-2]));
 		p.children.push_back((yyvsp[-1]));
 		p.children.push_back((yyvsp[0]));
-		(yyval) = p;
+		(yyval) = p; last_generate_node = p;
 	}
-#line 1484 "yacc.tab.c" /* yacc.c:1646  */
+#line 1485 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 93 "yacc.y" /* yacc.c:1646  */
+#line 94 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"identifier_list",0);
 		p.children.push_back((yyvsp[0]));
-		(yyval) = p;
+		(yyval) = p; last_generate_node = p;
 	}
-#line 1494 "yacc.tab.c" /* yacc.c:1646  */
+#line 1495 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 103 "yacc.y" /* yacc.c:1646  */
+#line 104 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"const_declarations",0);
 		p.children.push_back((yyvsp[-2]));
 		p.children.push_back((yyvsp[-1]));
 		p.children.push_back((yyvsp[0]));
-		(yyval) = p;
+		(yyval) = p; last_generate_node = p;
 	}
-#line 1506 "yacc.tab.c" /* yacc.c:1646  */
+#line 1507 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 111 "yacc.y" /* yacc.c:1646  */
+#line 112 "yacc.y" /* yacc.c:1646  */
     {
 		(yyval) = newNode(-1,"const_declarations",0);
 	}
-#line 1514 "yacc.tab.c" /* yacc.c:1646  */
+#line 1515 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 119 "yacc.y" /* yacc.c:1646  */
+#line 120 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"const_declaration",0);
 		p.children.push_back((yyvsp[-4]));
@@ -1522,58 +1523,58 @@ yyreduce:
 		p.children.push_back((yyvsp[-2]));
 		p.children.push_back((yyvsp[-1]));
 		p.children.push_back((yyvsp[0]));
-		(yyval) = p;
+		(yyval) = p; last_generate_node = p;
 	}
-#line 1528 "yacc.tab.c" /* yacc.c:1646  */
+#line 1529 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 129 "yacc.y" /* yacc.c:1646  */
+#line 130 "yacc.y" /* yacc.c:1646  */
     {
         p=newNode(-1,"const_declaration",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1540 "yacc.tab.c" /* yacc.c:1646  */
+#line 1541 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 141 "yacc.y" /* yacc.c:1646  */
+#line 142 "yacc.y" /* yacc.c:1646  */
     {
         p=newNode(-1,"const_value",0);                        
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 
 	}
-#line 1552 "yacc.tab.c" /* yacc.c:1646  */
+#line 1553 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 149 "yacc.y" /* yacc.c:1646  */
+#line 150 "yacc.y" /* yacc.c:1646  */
     {
         p=newNode(-1,"const_value",0);
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1563 "yacc.tab.c" /* yacc.c:1646  */
+#line 1564 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 156 "yacc.y" /* yacc.c:1646  */
+#line 157 "yacc.y" /* yacc.c:1646  */
     {
         p=newNode(-1,"const_value",0);       			
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1573 "yacc.tab.c" /* yacc.c:1646  */
+#line 1574 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 162 "yacc.y" /* yacc.c:1646  */
+#line 163 "yacc.y" /* yacc.c:1646  */
     {
 		ATRNode node_1 = newNode(SQUOTATION, (yyvsp[0]).attr.substr(0,1), (yyvsp[0]).line);
 		ATRNode node_2 = newNode(SQUOTATION, (yyvsp[0]).attr.substr(1,1), (yyvsp[0]).line);
@@ -1582,54 +1583,54 @@ yyreduce:
 		p.children.push_back(node_1); 
 		p.children.push_back(node_2); 
 		p.children.push_back(node_3); 	
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1588 "yacc.tab.c" /* yacc.c:1646  */
+#line 1589 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 177 "yacc.y" /* yacc.c:1646  */
+#line 178 "yacc.y" /* yacc.c:1646  */
     {
         p=newNode(-1,"num",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 
 	}
-#line 1599 "yacc.tab.c" /* yacc.c:1646  */
+#line 1600 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 184 "yacc.y" /* yacc.c:1646  */
+#line 185 "yacc.y" /* yacc.c:1646  */
     {
         p=newNode(-1,"num",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1609 "yacc.tab.c" /* yacc.c:1646  */
+#line 1610 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 194 "yacc.y" /* yacc.c:1646  */
+#line 195 "yacc.y" /* yacc.c:1646  */
     {
         p=newNode(-1,"var_declarations",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1621 "yacc.tab.c" /* yacc.c:1646  */
+#line 1622 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 202 "yacc.y" /* yacc.c:1646  */
+#line 203 "yacc.y" /* yacc.c:1646  */
     {
 		(yyval) = newNode(-1,"var_declarations",0);
 	}
-#line 1629 "yacc.tab.c" /* yacc.c:1646  */
+#line 1630 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 210 "yacc.y" /* yacc.c:1646  */
+#line 211 "yacc.y" /* yacc.c:1646  */
     {
         p=newNode(-1,"var_declaration",0);
         p.children.push_back((yyvsp[-4]));
@@ -1637,35 +1638,35 @@ yyreduce:
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1643 "yacc.tab.c" /* yacc.c:1646  */
+#line 1644 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 220 "yacc.y" /* yacc.c:1646  */
+#line 221 "yacc.y" /* yacc.c:1646  */
     {
         p=newNode(-1,"var_declaration",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-		(yyval) = p;
+		(yyval) = p; last_generate_node = p;
 	}
-#line 1655 "yacc.tab.c" /* yacc.c:1646  */
+#line 1656 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 232 "yacc.y" /* yacc.c:1646  */
+#line 233 "yacc.y" /* yacc.c:1646  */
     {
         p=newNode(-1,"type",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1665 "yacc.tab.c" /* yacc.c:1646  */
+#line 1666 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 238 "yacc.y" /* yacc.c:1646  */
+#line 239 "yacc.y" /* yacc.c:1646  */
     {
         p=newNode(-1,"type",0);
         p.children.push_back((yyvsp[-5]));
@@ -1674,53 +1675,53 @@ yyreduce:
         p.children.push_back((yyvsp[-2])); 
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1680 "yacc.tab.c" /* yacc.c:1646  */
+#line 1681 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 253 "yacc.y" /* yacc.c:1646  */
+#line 254 "yacc.y" /* yacc.c:1646  */
     {
         p=newNode(-1,"basic_type",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1690 "yacc.tab.c" /* yacc.c:1646  */
+#line 1691 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 259 "yacc.y" /* yacc.c:1646  */
+#line 260 "yacc.y" /* yacc.c:1646  */
     {
         p=newNode(-1,"basic_type",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1700 "yacc.tab.c" /* yacc.c:1646  */
+#line 1701 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 265 "yacc.y" /* yacc.c:1646  */
+#line 266 "yacc.y" /* yacc.c:1646  */
     {
         p=newNode(-1,"basic_type",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1710 "yacc.tab.c" /* yacc.c:1646  */
+#line 1711 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 271 "yacc.y" /* yacc.c:1646  */
+#line 272 "yacc.y" /* yacc.c:1646  */
     {
         p=newNode(-1,"basic_type",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1720 "yacc.tab.c" /* yacc.c:1646  */
+#line 1721 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 281 "yacc.y" /* yacc.c:1646  */
+#line 282 "yacc.y" /* yacc.c:1646  */
     {                     
         p=newNode(-1,"period",0);
         p.children.push_back((yyvsp[-4]));
@@ -1728,57 +1729,57 @@ yyreduce:
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1734 "yacc.tab.c" /* yacc.c:1646  */
+#line 1735 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 291 "yacc.y" /* yacc.c:1646  */
+#line 292 "yacc.y" /* yacc.c:1646  */
     {
         p=newNode(-1,"period",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1746 "yacc.tab.c" /* yacc.c:1646  */
+#line 1747 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 303 "yacc.y" /* yacc.c:1646  */
+#line 304 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"subprogram_declarations",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1758 "yacc.tab.c" /* yacc.c:1646  */
+#line 1759 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 311 "yacc.y" /* yacc.c:1646  */
+#line 312 "yacc.y" /* yacc.c:1646  */
     {
 		(yyval) = newNode(-1,"subprogram_declarations",0);
 	}
-#line 1766 "yacc.tab.c" /* yacc.c:1646  */
+#line 1767 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 319 "yacc.y" /* yacc.c:1646  */
+#line 320 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"subprogram",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1778 "yacc.tab.c" /* yacc.c:1646  */
+#line 1779 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 331 "yacc.y" /* yacc.c:1646  */
+#line 332 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"subprogram_head",0);
         p.children.push_back((yyvsp[-4]));
@@ -1786,196 +1787,196 @@ yyreduce:
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1792 "yacc.tab.c" /* yacc.c:1646  */
+#line 1793 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 341 "yacc.y" /* yacc.c:1646  */
+#line 342 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"subprogram_head",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1804 "yacc.tab.c" /* yacc.c:1646  */
+#line 1805 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 353 "yacc.y" /* yacc.c:1646  */
+#line 354 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"formal_parameter",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1816 "yacc.tab.c" /* yacc.c:1646  */
+#line 1817 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 361 "yacc.y" /* yacc.c:1646  */
+#line 362 "yacc.y" /* yacc.c:1646  */
     {
 		(yyval) = newNode(-1,"formal_parameter",0);
 	}
-#line 1824 "yacc.tab.c" /* yacc.c:1646  */
+#line 1825 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 369 "yacc.y" /* yacc.c:1646  */
+#line 370 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"parameter_list",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1836 "yacc.tab.c" /* yacc.c:1646  */
+#line 1837 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 377 "yacc.y" /* yacc.c:1646  */
+#line 378 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"parameter_list",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1846 "yacc.tab.c" /* yacc.c:1646  */
+#line 1847 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 387 "yacc.y" /* yacc.c:1646  */
+#line 388 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"parameter",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1856 "yacc.tab.c" /* yacc.c:1646  */
+#line 1857 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 393 "yacc.y" /* yacc.c:1646  */
+#line 394 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"parameter",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1866 "yacc.tab.c" /* yacc.c:1646  */
+#line 1867 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 403 "yacc.y" /* yacc.c:1646  */
+#line 404 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"var_parameter",0);
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1877 "yacc.tab.c" /* yacc.c:1646  */
+#line 1878 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 414 "yacc.y" /* yacc.c:1646  */
+#line 415 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"value_parameter",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
 		p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1889 "yacc.tab.c" /* yacc.c:1646  */
+#line 1890 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 426 "yacc.y" /* yacc.c:1646  */
+#line 427 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"subprogram_body",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1901 "yacc.tab.c" /* yacc.c:1646  */
+#line 1902 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 434 "yacc.y" /* yacc.c:1646  */
+#line 435 "yacc.y" /* yacc.c:1646  */
     {
 		(yyval) = newNode(-1,"subprogram_body",0);
 	}
-#line 1909 "yacc.tab.c" /* yacc.c:1646  */
+#line 1910 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 442 "yacc.y" /* yacc.c:1646  */
+#line 443 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"compound_statement",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1921 "yacc.tab.c" /* yacc.c:1646  */
+#line 1922 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 453 "yacc.y" /* yacc.c:1646  */
+#line 454 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"statement_list",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1933 "yacc.tab.c" /* yacc.c:1646  */
+#line 1934 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 461 "yacc.y" /* yacc.c:1646  */
+#line 462 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"statement_list",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1943 "yacc.tab.c" /* yacc.c:1646  */
+#line 1944 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 471 "yacc.y" /* yacc.c:1646  */
+#line 472 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"statement",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1955 "yacc.tab.c" /* yacc.c:1646  */
+#line 1956 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 479 "yacc.y" /* yacc.c:1646  */
+#line 480 "yacc.y" /* yacc.c:1646  */
     {	
 		p=newNode(-1,"statement",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1965 "yacc.tab.c" /* yacc.c:1646  */
+#line 1966 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 485 "yacc.y" /* yacc.c:1646  */
+#line 486 "yacc.y" /* yacc.c:1646  */
     {	
 		p=newNode(-1,"statement",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1975 "yacc.tab.c" /* yacc.c:1646  */
+#line 1976 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 491 "yacc.y" /* yacc.c:1646  */
+#line 492 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"statement",0);
         p.children.push_back((yyvsp[-4]));
@@ -1983,13 +1984,13 @@ yyreduce:
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 1989 "yacc.tab.c" /* yacc.c:1646  */
+#line 1990 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 501 "yacc.y" /* yacc.c:1646  */
+#line 502 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"statement",0);
         p.children.push_back((yyvsp[-7]));
@@ -2000,13 +2001,13 @@ yyreduce:
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2006 "yacc.tab.c" /* yacc.c:1646  */
+#line 2007 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 514 "yacc.y" /* yacc.c:1646  */
+#line 515 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"statement",0);
         p.children.push_back((yyvsp[-7]));
@@ -2017,464 +2018,464 @@ yyreduce:
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2023 "yacc.tab.c" /* yacc.c:1646  */
+#line 2024 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 527 "yacc.y" /* yacc.c:1646  */
+#line 528 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"statement",0);
         p.children.push_back((yyvsp[-3]));
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2036 "yacc.tab.c" /* yacc.c:1646  */
+#line 2037 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 536 "yacc.y" /* yacc.c:1646  */
+#line 537 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"statement",0);
         p.children.push_back((yyvsp[-3]));
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2049 "yacc.tab.c" /* yacc.c:1646  */
+#line 2050 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 545 "yacc.y" /* yacc.c:1646  */
+#line 546 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"statement",0);
         p.children.push_back((yyvsp[-3]));
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2062 "yacc.tab.c" /* yacc.c:1646  */
+#line 2063 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 554 "yacc.y" /* yacc.c:1646  */
+#line 555 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"statement",0);
         p.children.push_back((yyvsp[-3]));
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2075 "yacc.tab.c" /* yacc.c:1646  */
+#line 2076 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 563 "yacc.y" /* yacc.c:1646  */
+#line 564 "yacc.y" /* yacc.c:1646  */
     {
 		(yyval) = newNode(-1,"statement",0);
 	}
-#line 2083 "yacc.tab.c" /* yacc.c:1646  */
+#line 2084 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 571 "yacc.y" /* yacc.c:1646  */
+#line 572 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"variable_list",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2095 "yacc.tab.c" /* yacc.c:1646  */
+#line 2096 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 579 "yacc.y" /* yacc.c:1646  */
+#line 580 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"variable_list",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2105 "yacc.tab.c" /* yacc.c:1646  */
+#line 2106 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 589 "yacc.y" /* yacc.c:1646  */
+#line 590 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"variable",0);
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2116 "yacc.tab.c" /* yacc.c:1646  */
+#line 2117 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 601 "yacc.y" /* yacc.c:1646  */
+#line 602 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"id_varpart",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2128 "yacc.tab.c" /* yacc.c:1646  */
+#line 2129 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 609 "yacc.y" /* yacc.c:1646  */
+#line 610 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"id_varpart",0);
-		(yyval) = p;
+		(yyval) = p; last_generate_node = p;
 	}
-#line 2137 "yacc.tab.c" /* yacc.c:1646  */
+#line 2138 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 618 "yacc.y" /* yacc.c:1646  */
+#line 619 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"procedure_call",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2147 "yacc.tab.c" /* yacc.c:1646  */
+#line 2148 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 624 "yacc.y" /* yacc.c:1646  */
+#line 625 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"procedure_call",0);
         p.children.push_back((yyvsp[-3]));
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2160 "yacc.tab.c" /* yacc.c:1646  */
+#line 2161 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 637 "yacc.y" /* yacc.c:1646  */
+#line 638 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"else_part",0);
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2171 "yacc.tab.c" /* yacc.c:1646  */
+#line 2172 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 644 "yacc.y" /* yacc.c:1646  */
+#line 645 "yacc.y" /* yacc.c:1646  */
     {
 		(yyval) = newNode(-1,"else_part",0);
 	}
-#line 2179 "yacc.tab.c" /* yacc.c:1646  */
+#line 2180 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 652 "yacc.y" /* yacc.c:1646  */
+#line 653 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"expression_list",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2191 "yacc.tab.c" /* yacc.c:1646  */
+#line 2192 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 660 "yacc.y" /* yacc.c:1646  */
+#line 661 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"expression_list",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2201 "yacc.tab.c" /* yacc.c:1646  */
+#line 2202 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 670 "yacc.y" /* yacc.c:1646  */
+#line 671 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"expression",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2213 "yacc.tab.c" /* yacc.c:1646  */
+#line 2214 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 678 "yacc.y" /* yacc.c:1646  */
+#line 679 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"expression",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2223 "yacc.tab.c" /* yacc.c:1646  */
+#line 2224 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 688 "yacc.y" /* yacc.c:1646  */
+#line 689 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"simple_expression",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2233 "yacc.tab.c" /* yacc.c:1646  */
+#line 2234 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 694 "yacc.y" /* yacc.c:1646  */
+#line 695 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"simple_expression",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2245 "yacc.tab.c" /* yacc.c:1646  */
+#line 2246 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 706 "yacc.y" /* yacc.c:1646  */
+#line 707 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"term",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2257 "yacc.tab.c" /* yacc.c:1646  */
+#line 2258 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 714 "yacc.y" /* yacc.c:1646  */
+#line 715 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"term",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2267 "yacc.tab.c" /* yacc.c:1646  */
+#line 2268 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 724 "yacc.y" /* yacc.c:1646  */
+#line 725 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"factor",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2277 "yacc.tab.c" /* yacc.c:1646  */
+#line 2278 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 77:
-#line 730 "yacc.y" /* yacc.c:1646  */
+#line 731 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"factor",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2287 "yacc.tab.c" /* yacc.c:1646  */
+#line 2288 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 736 "yacc.y" /* yacc.c:1646  */
+#line 737 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"factor",0);
         p.children.push_back((yyvsp[-3]));
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2300 "yacc.tab.c" /* yacc.c:1646  */
+#line 2301 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 745 "yacc.y" /* yacc.c:1646  */
+#line 746 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"factor",0);
         p.children.push_back((yyvsp[-2]));
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2312 "yacc.tab.c" /* yacc.c:1646  */
+#line 2313 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 80:
-#line 753 "yacc.y" /* yacc.c:1646  */
+#line 754 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"factor",0);
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2323 "yacc.tab.c" /* yacc.c:1646  */
+#line 2324 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 81:
-#line 760 "yacc.y" /* yacc.c:1646  */
+#line 761 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"factor",0);
         p.children.push_back((yyvsp[-1]));
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2334 "yacc.tab.c" /* yacc.c:1646  */
+#line 2335 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 82:
-#line 771 "yacc.y" /* yacc.c:1646  */
+#line 772 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"relop",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2344 "yacc.tab.c" /* yacc.c:1646  */
+#line 2345 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 83:
-#line 777 "yacc.y" /* yacc.c:1646  */
+#line 778 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"relop",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2354 "yacc.tab.c" /* yacc.c:1646  */
+#line 2355 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 84:
-#line 783 "yacc.y" /* yacc.c:1646  */
+#line 784 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"relop",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2364 "yacc.tab.c" /* yacc.c:1646  */
+#line 2365 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 85:
-#line 789 "yacc.y" /* yacc.c:1646  */
+#line 790 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"relop",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2374 "yacc.tab.c" /* yacc.c:1646  */
+#line 2375 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 86:
-#line 795 "yacc.y" /* yacc.c:1646  */
+#line 796 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"relop",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2384 "yacc.tab.c" /* yacc.c:1646  */
+#line 2385 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 87:
-#line 801 "yacc.y" /* yacc.c:1646  */
+#line 802 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"relop",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2394 "yacc.tab.c" /* yacc.c:1646  */
+#line 2395 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 88:
-#line 810 "yacc.y" /* yacc.c:1646  */
+#line 811 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"addop",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2404 "yacc.tab.c" /* yacc.c:1646  */
+#line 2405 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 89:
-#line 816 "yacc.y" /* yacc.c:1646  */
+#line 817 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"addop",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2414 "yacc.tab.c" /* yacc.c:1646  */
+#line 2415 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 90:
-#line 822 "yacc.y" /* yacc.c:1646  */
+#line 823 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"addop",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2424 "yacc.tab.c" /* yacc.c:1646  */
+#line 2425 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 91:
-#line 832 "yacc.y" /* yacc.c:1646  */
+#line 833 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"mulop",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2434 "yacc.tab.c" /* yacc.c:1646  */
+#line 2435 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 92:
-#line 838 "yacc.y" /* yacc.c:1646  */
+#line 839 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"mulop",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2444 "yacc.tab.c" /* yacc.c:1646  */
+#line 2445 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 93:
-#line 844 "yacc.y" /* yacc.c:1646  */
+#line 845 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"mulop",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2454 "yacc.tab.c" /* yacc.c:1646  */
+#line 2455 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 94:
-#line 850 "yacc.y" /* yacc.c:1646  */
+#line 851 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"mulop",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2464 "yacc.tab.c" /* yacc.c:1646  */
+#line 2465 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
   case 95:
-#line 856 "yacc.y" /* yacc.c:1646  */
+#line 857 "yacc.y" /* yacc.c:1646  */
     {
 		p=newNode(-1,"mulop",0);
         p.children.push_back((yyvsp[0]));
-        (yyval) = p;
+        (yyval) = p; last_generate_node = p;
 	}
-#line 2474 "yacc.tab.c" /* yacc.c:1646  */
+#line 2475 "yacc.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 2478 "yacc.tab.c" /* yacc.c:1646  */
+#line 2479 "yacc.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2702,12 +2703,18 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 862 "yacc.y" /* yacc.c:1906  */
+#line 863 "yacc.y" /* yacc.c:1906  */
 
 
 void yyerror(const char *s)			//当yacc遇到语法错误时，会回调yyerror函数，并且把错误信息放在参数s中
 {
+	string error_desc = last_generate_node.attr + " ->";
+	for(auto & i : last_generate_node.children)
+	{
+		error_desc += " " + i.attr;
+	}
 	cout  << s << " at line " << line << endl;					//直接输出错误信息
+	cout << "Last production rule: \t" << error_desc << endl;
 	exit(90);
 }
 
