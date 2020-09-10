@@ -319,7 +319,6 @@ void generator_subprogram_declarations(ATRNode * node){
 // subprogram -> subprogram_head; subprogram_body
 void generator_subprogram(ATRNode * node){
     cout << "generator_subprogram" << endl;
-    cout << node->children[0].attr << endl;
     space(N);
     fstream output_stream;
     generator_subprogram_head(&node->children[0]);
@@ -569,7 +568,13 @@ void generator_statement(ATRNode * node) {
             output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << ") " << endl;
             output_stream.close();
-            if (node->children[3].children[0].attr != "compound_statement") {
+            if (node->children[3].children.empty()) {
+                space(N);
+                output_stream.open(fname, ios::app | ios::in | ios::out);
+                output_stream << "{}" << endl;
+                output_stream.close();
+            }
+            else if (node->children[3].children[0].attr != "compound_statement") {
                 space(N);
                 output_stream.open(fname, ios::app | ios::in | ios::out);
                 output_stream << "{" << endl;
@@ -622,7 +627,13 @@ void generator_statement(ATRNode * node) {
                 output_stream << "; " << node->children[1].attr << "++" << ") " << endl;
                 output_stream.close();
             }
-            if (node->children[7].children[0].attr != "compound_statement") {
+            if (node->children[7].children.empty()) {
+                space(N);
+                output_stream.open(fname, ios::app | ios::in | ios::out);
+                output_stream << "{}" << endl;
+                output_stream.close();
+            }
+            else if (node->children[7].children[0].attr != "compound_statement") {
                 space(N);
                 output_stream.open(fname, ios::app | ios::in | ios::out);
                 output_stream << "{" << endl;
@@ -659,7 +670,13 @@ void generator_statement(ATRNode * node) {
             output_stream.open(fname, ios::app|ios::in|ios::out);
             output_stream << ") " << endl;
             output_stream.close();
-            if (node->children[3].children[0].attr != "compound_statement") {
+            if (node->children[3].children.empty()) {
+                space(N);
+                output_stream.open(fname, ios::app | ios::in | ios::out);
+                output_stream << "{}" << endl;
+                output_stream.close();
+            }
+            else if (node->children[3].children[0].attr != "compound_statement") {
                 space(N);
                 output_stream.open(fname, ios::app | ios::in | ios::out);
                 output_stream << "{" << endl;
@@ -768,13 +785,9 @@ void generator_statement(ATRNode * node) {
             }
         }
     }
-    /*
-     * else {
-        output_stream.open(fname, ios::app|ios::in|ios::out);
-        output_stream << endl;
-        output_stream.close();
+    else {
+
     }
-     */
 }
 
 //@
@@ -918,7 +931,13 @@ void generator_else_part(ATRNode * node){
             space(N);
             output_stream << "else" << endl;
             output_stream.close();
-            if (node->children[1].children[0].attr != "compound_statement") {
+            if (node->children[1].children.empty()) {
+                space(N);
+                output_stream.open(fname, ios::app | ios::in | ios::out);
+                output_stream << "{}" << endl;
+                output_stream.close();
+            }
+            else if (node->children[1].children[0].attr != "compound_statement") {
                 space(N);
                 output_stream.open(fname, ios::app | ios::in | ios::out);
                 output_stream << "{" << endl;
